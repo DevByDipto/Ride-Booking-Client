@@ -1,12 +1,13 @@
 import React from 'react'
 import { Outlet } from 'react-router'
-
+import Navnbar from './Navbar'
+import { Footer2 } from './Footer'
 const CommonLayout = () => {
   return (
     <div>
-        nav
+       <Navnbar/>
         <Outlet/>
-        footer
+        <Footer2/>
     </div>
   )
 }
