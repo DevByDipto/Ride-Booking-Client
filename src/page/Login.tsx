@@ -41,7 +41,9 @@ const registerSchema = z.object({
  
     
     const res = await login(values).unwrap()
-
+if(res.success){
+  
+}
     console.log(res)
   }
 

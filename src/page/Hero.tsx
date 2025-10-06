@@ -23,25 +23,25 @@ interface Hero1Props {
   };
 }
 
-const Hero = ({
-  badge = "✨ Your Website Builder",
-  heading = "Blocks Built With Shadcn & Tailwind",
-  description = "Finely crafted components built with React, Tailwind and Shadcn UI. Developers can copy and paste these blocks directly into their project.",
-  buttons = {
-    primary: {
-      text: "Discover all components",
-      url: "https://www.shadcnblocks.com",
-    },
-    secondary: {
-      text: "View on GitHub",
-      url: "https://www.shadcnblocks.com",
-    },
+const Hero = () => {
+ const badge = "✨ Your Website Builder";
+const heading = "Blocks Built With Shadcn & Tailwind";
+const description = "Finely crafted components built with React, Tailwind and Shadcn UI. Developers can copy and paste these blocks directly into their project.";
+const buttons = {
+  primary: {
+    text: "Discover all components",
+    url: "https://www.shadcnblocks.com",
   },
-  image = {
-    src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
-    alt: "Hero section demo image showing interface components",
+  secondary: {
+    text: "View on GitHub",
+    url: "https://www.shadcnblocks.com",
   },
-}: Hero1Props) => {
+};
+const image = {
+  src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+  alt: "Hero section demo image showing interface components",
+};
+
   return (
     <section className="py-32">
       <div className="container">

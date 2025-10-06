@@ -1,37 +1,56 @@
-import { HouseIcon, InboxIcon, SparklesIcon, ZapIcon } from "lucide-react"
+import { HouseIcon, InboxIcon, SparklesIcon, ZapIcon } from "lucide-react";
 
-import Logo from "../ui/logo"
-import UserMenu from "../ui/user-menu"
-import { Button } from "../ui/button"
+import Logo from "../ui/logo";
+import UserMenu from "../ui/user-menu";
+import { Button } from "../ui/button";
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-} from "../ui/navigation-menu"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "../ui/popover"
-import { useUserInfoQuery } from "@/redux/features/user/user.api"
-import { Link } from "react-router"
+} from "../ui/navigation-menu";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Link } from "react-router";
+import Loading from "../shared/Loading";
+import { role } from "@/constants/role";
+import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
 
 // Navigation links array
-const navigationLinks = [
-  { href: "#", label: "Home", icon: HouseIcon, active: true },
-  { href: "#", label: "Inbox", icon: InboxIcon },
-  { href: "#", label: "Insights", icon: ZapIcon },
-]
 
 // const handleLogout =>{
 
 // }
 
 export default function Navbar() {
-  const {data: user} = useUserInfoQuery(undefined)
-  console.log("user",user);
-  
+  const { data: user, isLoading } = useUserInfoQuery();
+  console.log("user", user);
+  if (isLoading) {
+    return <Loading />;
+  }
+  const navigationLinks = [
+    { href: "#", label: "Home", icon: HouseIcon, active: true, role: "public" },
+    { href: "#", label: "Inbox", icon: InboxIcon, role: "public" },
+    { href: "#", label: "Insights", icon: ZapIcon, role: "public" },
+    {
+      href: `/dashboard/admin`,
+      label: "dashboard",
+      icon: ZapIcon,
+      role: role.ADMIN,
+    },
+    {
+      href: `/dashboard/rider`,
+      label: "dashboard",
+      icon: ZapIcon,
+      role: role.RIDER,
+    },
+    {
+      href: `/dashboard/driver`,
+      label: "dashboard",
+      icon: ZapIcon,
+      role: role.DRIVER,
+    },
+  ];
+
   return (
     <header className="border-b px-4 md:px-6">
       <div className="flex h-16 items-center justify-between gap-4">
@@ -76,23 +95,45 @@ export default function Navbar() {
               <NavigationMenu className="max-w-none *:w-full">
                 <NavigationMenuList className="flex-col items-start gap-0 md:gap-2">
                   {navigationLinks.map((link, index) => {
-                    const Icon = link.icon
-                    return (
-                      <NavigationMenuItem key={index} className="w-full">
-                        <NavigationMenuLink
-                          href={link.href}
-                          className="flex-row items-center gap-2 py-1.5"
-                          active={link.active}
-                        >
-                          <Icon
-                            size={16}
-                            className="text-muted-foreground/80"
-                            aria-hidden="true"
-                          />
-                          <span>{link.label}</span>
-                        </NavigationMenuLink>
-                      </NavigationMenuItem>
-                    )
+                    const Icon = link.icon;
+                    if (link.role === "public") {
+                      return (
+                        <NavigationMenuItem key={index} className="w-full">
+                          <NavigationMenuLink
+                            href={link.href}
+                            className="flex-row items-center gap-2 py-1.5"
+                            active={link.active}
+                          >
+                            <Link to={link.href}></Link>
+                            <Icon
+                              size={16}
+                              className="text-muted-foreground/80"
+                              aria-hidden="true"
+                            />
+                            <span>{link.label}</span>
+                          </NavigationMenuLink>
+                        </NavigationMenuItem>
+                      );
+                    }
+                    if (link.role === user?.data.role) {
+                      return (
+                        <NavigationMenuItem key={index} className="w-full">
+                          <NavigationMenuLink
+                            href={link.href}
+                            className="flex-row items-center gap-2 py-1.5"
+                            active={link.active}
+                          >
+                            <Link to={link.href}></Link>
+                            <Icon
+                              size={16}
+                              className="text-muted-foreground/80"
+                              aria-hidden="true"
+                            />
+                            <span>{link.label}</span>
+                          </NavigationMenuLink>
+                        </NavigationMenuItem>
+                      );
+                    }
                   })}
                 </NavigationMenuList>
               </NavigationMenu>
@@ -102,7 +143,8 @@ export default function Navbar() {
           <NavigationMenu className="max-md:hidden">
             <NavigationMenuList className="gap-2">
               {navigationLinks.map((link, index) => {
-                const Icon = link.icon
+                const Icon = link.icon;
+                if (link.role === "public") {
                 return (
                   <NavigationMenuItem key={index}>
                     <NavigationMenuLink
@@ -118,7 +160,24 @@ export default function Navbar() {
                       <span>{link.label}</span>
                     </NavigationMenuLink>
                   </NavigationMenuItem>
-                )
+                );}
+                if (link.role === user?.data.role) {
+                   return (
+                  <NavigationMenuItem key={index}>
+                    <NavigationMenuLink
+                      active={link.active}
+                      href={link.href}
+                      className="text-foreground hover:text-primary flex-row items-center gap-2 py-1.5 font-medium"
+                    >
+                      <Icon
+                        size={16}
+                        className="text-muted-foreground/80"
+                        aria-hidden="true"
+                      />
+                      <span>{link.label}</span>
+                    </NavigationMenuLink>
+                  </NavigationMenuItem>
+                );}
               })}
             </NavigationMenuList>
           </NavigationMenu>
@@ -134,12 +193,21 @@ export default function Navbar() {
         {/* Right side: Actions */}
         <div className="flex flex-1 items-center justify-end gap-4">
           {/* User menu */}
-          {user ?  <UserMenu /> : <>
-          <Button> <Link to='login'>Login</Link></Button>
-          <Button> <Link to='register'>Register</Link></Button>
-         
-          </>}
-         
+          {user ? (
+            <UserMenu />
+          ) : (
+            <>
+              <Button>
+                {" "}
+                <Link to="login">Login</Link>
+              </Button>
+              <Button>
+                {" "}
+                <Link to="register">Register</Link>
+              </Button>
+            </>
+          )}
+
           {/* Upgrade button */}
           {/* <Button size="sm" className="text-sm sm:aspect-square">
             <SparklesIcon
@@ -152,5 +220,5 @@ export default function Navbar() {
         </div>
       </div>
     </header>
-  )
+  );
 }
