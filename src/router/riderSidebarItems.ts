@@ -1,6 +1,5 @@
-import Allride from "@/page/admin/Allride";
-import AllRider from "@/page/admin/AllRider";
-import AllUser from "@/page/admin/AllUser";
+
+import { RiderAllRideHistory } from "@/page/ride/RiderAllrideHistory";
 
 
 
@@ -9,9 +8,9 @@ export const riderSidebarItems= [
       title: "rider route",
       items: [
         {
-          title: "for rider All Ride",
+          title: "All Ride History",
           url: "/dashboard/rider/all-ride",
-           Component: Allride
+           Component: RiderAllRideHistory
         },
       ],
     },

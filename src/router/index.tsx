@@ -15,6 +15,7 @@ import { adminSidebarItems } from "./adminSidebarItems";
 import NotFound from "@/page/NotFound";
 import BlockedPage from "@/page/BlockedPage";
 import RiderPrivateRoute from "./RiderPrivateRoute";
+import { riderSidebarItems } from "./riderSidebarItems";
 
 export const router = createBrowserRouter([
   {
@@ -44,7 +45,9 @@ export const router = createBrowserRouter([
         <DashBoardLayout />
       </RiderPrivateRoute>
     ),
-    children: [{ path: "/dashboard/rider/all-ride", Component: Allride }],
+    children: [{ index: true, element: <Navigate to="/dashboard/rider/all-ride" /> },
+      ...generateRouteFromSidebar(riderSidebarItems),
+    ],
   },
   {
     path: "/register",
