@@ -15,11 +15,16 @@ import {
 import { Input } from "../components/ui/input";
 import { useRegisterMutation } from "../redux/features/auth/auth.api";
 import LoadingButton from "../components/shared/LoadingButton";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
+import { toast } from "sonner";
+import type { IError } from "@/types";
+import ShowErrorToast from "@/components/shared/ShowErrorToast";
 
 const Register = () => {
   const [register, { isLoading, isError, isSuccess }] = useRegisterMutation();
-
+  const navigate = useNavigate();
+   const location = useLocation()
+  console.log(location);
   const registerSchema = z.object({
     name: z.string().min(2).max(50),
     email: z.email(),
@@ -38,9 +43,15 @@ const Register = () => {
 
   // 2. Define a submit handler.
   const onSubmit = async (values: z.infer<typeof registerSchema>) => {
-    const res = await register(values).unwrap();
-
-    console.log(res);
+    try {
+      const res = await register(values).unwrap();
+      if (res.success) {
+        toast.success("congatulation! register successfull");
+        navigate("/login",{state:location.state});
+      }
+    } catch (error) {
+    ShowErrorToast(error as IError<null>);
+    }
   };
 
   return (
@@ -96,12 +107,12 @@ const Register = () => {
             </LoadingButton>
             <div className="text-muted-foreground flex justify-center gap-1 text-sm">
               <p>Already have a account? Please</p>
-              <Link
-                to="/login"
+              <p
+               onClick={()=>navigate('/login',{state:location.state})}
                 className="text-primary font-medium hover:underline"
               >
                 Login
-              </Link>
+              </p>
             </div>
           </form>
         </Form>

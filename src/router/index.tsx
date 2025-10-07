@@ -13,6 +13,7 @@ import PrivateRoute from "./privateRoute";
 import generateRouteFromSidebar from "@/utils/generateRouteFromSidebar";
 import { adminSidebarItems } from "./adminSidebarItems";
 import NotFound from "@/page/NotFound";
+import BlockedPage from "@/page/BlockedPage";
 
 export const router = createBrowserRouter([
   {
@@ -57,9 +58,12 @@ export const router = createBrowserRouter([
     Component: Unauthorized,
   },
   {
+    path: "/blockedPage",
+    Component: BlockedPage,
+  },
+  {
     path: "*",
     Component: NotFound,
   },
 ]);
 
-console.log(generateRouteFromSidebar(adminSidebarItems));

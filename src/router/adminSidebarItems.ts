@@ -23,6 +23,7 @@ export const adminSidebarItems= [
           url: "/dashboard/admin/all-ride", 
            Component: Allride
         },
+         
        
       ],
     },

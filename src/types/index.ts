@@ -20,3 +20,13 @@ url:string,
 Component:ComponentType
   }[]
 }
+
+export interface IError<T>{
+  status:number,
+  data:{
+    success: boolean,
+     message:string
+     // devlopment face e to err,stach etc aste pare but ta to ami di nai ate kono issue hobe kii ? (support)
+  },
+  errorSources:Array<T>
+}

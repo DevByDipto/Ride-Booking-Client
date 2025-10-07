@@ -148,7 +148,7 @@ export default function Navbar() {
                 return (
                   <NavigationMenuItem key={index}>
                     <NavigationMenuLink
-                      active={link.active}
+                      active={link.active} 
                       href={link.href}
                       className="text-foreground hover:text-primary flex-row items-center gap-2 py-1.5 font-medium"
                     >

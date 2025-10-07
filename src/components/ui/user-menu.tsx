@@ -5,14 +5,10 @@ import {
   LogOutIcon,
   PinIcon,
   UserPenIcon,
-} from "lucide-react"
+} from "lucide-react";
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "./avatar"
-import { Button } from "./button"
+import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
+import { Button } from "./button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,17 +17,34 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "./dropdown-menu"
-import { useLogoutMutation } from "@/redux/features/auth/auth.api"
+} from "./dropdown-menu";
+import { useLogoutMutation } from "@/redux/features/auth/auth.api";
+import { useDispatch } from "react-redux";
+import { baseApi } from "@/redux/baseApi";
+import ShowErrorToast from "../shared/ShowErrorToast";
+import type { IError } from "@/types";
+
+
 
 export default function UserMenu() {
-  const [logout]= useLogoutMutation()
+  const [logout] = useLogoutMutation();
+  const dispatch = useDispatch();
 
-  const handleLogout=async()=>{
-    const res = await logout().unwrap()
-    console.log(res);
-    
-  }
+
+  const handleLogout = async () => {
+    try {
+      const res = await logout().unwrap();
+      if (res) {
+        dispatch(baseApi.util.resetApiState());
+      }
+      console.log(res);
+    } catch (error) {
+      ShowErrorToast(error as IError<null>);
+    }
+  };
+
+
+  
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -43,7 +56,6 @@ export default function UserMenu() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="max-w-64" align="end">
-
         {/* <DropdownMenuLabel className="flex min-w-0 flex-col">
           <span className="text-foreground truncate text-sm font-medium">
             Keith Kennedy
@@ -85,5 +97,5 @@ export default function UserMenu() {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  )
+  );
 }

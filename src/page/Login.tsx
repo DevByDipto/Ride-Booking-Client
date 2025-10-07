@@ -15,12 +15,18 @@ import {
 import { Input } from "../components/ui/input"
 import { useLoginMutation } from '../redux/features/auth/auth.api'
 import LoadingButton from '../components/shared/LoadingButton'
+import { toast } from 'sonner'
+import { Link, useLocation, useNavigate } from 'react-router'
+import type { IError } from '@/types'
+import ShowErrorToast from '@/components/shared/ShowErrorToast'
 
 
 const Login = () => {
      
     const [login, { isLoading, isError, isSuccess }] = useLoginMutation()
- 
+ const navigate = useNavigate()
+ const location = useLocation()
+  console.log(location);
 const registerSchema = z.object({
   email: z.email(),
   password: z.string().min(6).max(50),
@@ -40,11 +46,19 @@ const registerSchema = z.object({
    const onSubmit = async (values: z.infer<typeof registerSchema>)=> {
  
     
-    const res = await login(values).unwrap()
-if(res.success){
-  
+   
+    try {
+       const res = await login(values).unwrap()
+          if(res.success){
+  toast.success('congatulation! login successfull')
+  navigate(location.state || '/')
+    }
+  } catch (error) {
+    ShowErrorToast(error as IError<null>)
 }
-    console.log(res)
+   
+
+    
   }
 
   return (
@@ -89,15 +103,15 @@ if(res.success){
 {/* {
   isLoading ? <div>Loading...</div> : <Button type="submit">Submit</Button>
 } */}
-<LoadingButton isLoading={isLoading} type="submit">Sign Up</LoadingButton>
+<LoadingButton isLoading={isLoading} type="submit">Login</LoadingButton>
 <div className="text-muted-foreground flex justify-center gap-1 text-sm">
-            <p>Already have a account? Please</p>
-            <a
-              href="#"
+            <p>Don't have any account? Please</p>
+            <p
+              onClick={()=>navigate('/register',{state:location.state})}
               className="text-primary font-medium hover:underline"
             >
-              Login
-            </a>
+              Register
+            </p>
           </div>
         
       </form>

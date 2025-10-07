@@ -1,5 +1,5 @@
 // utils/errorHandler.js
-export const RenderError = (isError, error) => {
+export const RenderError = (isError:boolean) => {
   if (!isError) return null;
 
   return (
