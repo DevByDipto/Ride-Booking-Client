@@ -14,6 +14,7 @@ import generateRouteFromSidebar from "@/utils/generateRouteFromSidebar";
 import { adminSidebarItems } from "./adminSidebarItems";
 import NotFound from "@/page/NotFound";
 import BlockedPage from "@/page/BlockedPage";
+import RiderPrivateRoute from "./RiderPrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -39,9 +40,9 @@ export const router = createBrowserRouter([
   {
     path: "/dashboard/rider",
     element: (
-      <PrivateRoute role="rider">
+      <RiderPrivateRoute role="rider">
         <DashBoardLayout />
-      </PrivateRoute>
+      </RiderPrivateRoute>
     ),
     children: [{ path: "/dashboard/rider/all-ride", Component: Allride }],
   },

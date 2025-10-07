@@ -9,7 +9,7 @@ const AllUser = () => {
   
   RenderLoadning(isLoading)
   RenderError(isError)
-  console.log(data);
+  // console.log(data);
   
   return (
     <div>AllUser</div>

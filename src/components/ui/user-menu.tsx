@@ -37,7 +37,7 @@ export default function UserMenu() {
       if (res) {
         dispatch(baseApi.util.resetApiState());
       }
-      console.log(res);
+      // console.log(res);
     } catch (error) {
       ShowErrorToast(error as IError<null>);
     }

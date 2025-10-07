@@ -24,7 +24,7 @@ const Register = () => {
   const [register, { isLoading, isError, isSuccess }] = useRegisterMutation();
   const navigate = useNavigate();
    const location = useLocation()
-  console.log(location);
+  // console.log(location);
   const registerSchema = z.object({
     name: z.string().min(2).max(50),
     email: z.email(),

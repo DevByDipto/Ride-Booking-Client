@@ -1,6 +1,6 @@
 // BlockedPage.tsx
 import React from "react";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 
 interface BlockedPageProps {
   status?: string; // যেমন: "Blocked", "Suspended", "Pending"
@@ -10,17 +10,19 @@ interface BlockedPageProps {
 }
 
 const BlockedPage: React.FC<BlockedPageProps> = ({
-  status = "Blocked",
-  message = "Your account is currently blocked. Please contact support for assistance.",
+  // status = "Blocked",
+  // message = "Your account is currently blocked. Please contact support for assistance.",
   contactEmail = "support@example.com",
   contactPhone = "+880123456789",
 }) => {
+    const location = useLocation();
+    console.log(location);
     
   return (
     <div className="flex items-center justify-center min-h-screen px-4 bg-[var(--background)] text-[var(--foreground)]">
       <div className="max-w-md w-full p-8 rounded-[var(--radius)] shadow-lg bg-[var(--card)] text-[var(--card-foreground)]">
-        <h1 className="text-4xl font-bold text-[var(--destructive)] mb-4">{status}</h1>
-        <p className="text-[var(--muted-foreground)] mb-6">{message}</p>
+        <h1 className="text-4xl font-bold text-[var(--destructive)] mb-4">{location.state}</h1>
+        <p className="text-[var(--muted-foreground)] mb-6">Your account is currently {location.state}. Please contact support for assistance.</p>
 
         <div className="bg-[var(--muted)] p-4 rounded-lg mb-4">
           <p className="text-[var(--foreground)] mb-2 font-semibold">Contact Support:</p>

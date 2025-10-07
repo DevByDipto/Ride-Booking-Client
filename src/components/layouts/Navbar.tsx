@@ -22,8 +22,10 @@ import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
 // }
 
 export default function Navbar() {
-  const { data: user, isLoading } = useUserInfoQuery();
-  console.log("user", user);
+  const { data: user, isLoading,error } = useUserInfoQuery();
+  console.log(error);
+  
+  // console.log("user", user);
   if (isLoading) {
     return <Loading />;
   }

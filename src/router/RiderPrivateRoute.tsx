@@ -8,7 +8,7 @@ type PrivateRouteProps = {
   children: ReactNode;
 };
 
-const PrivateRoute = ({ role, children }: PrivateRouteProps) => {
+const RiderPrivateRoute = ({ role, children }: PrivateRouteProps) => {
   const { data, isLoading } = useUserInfoQuery();
   const location = useLocation()
   // console.log(location);
@@ -24,10 +24,10 @@ const PrivateRoute = ({ role, children }: PrivateRouteProps) => {
   if(role && role !== data?.data?.role){
 return <Navigate to='/unauthorized'/>
   }
-  // if(data.data.){
-
-  // }
+  if(data.data?.rider?.isBlocked){ 
+return <Navigate to="/blockedPage"/>
+  }
   return children
 };
 
-export default PrivateRoute;
+export default RiderPrivateRoute;
