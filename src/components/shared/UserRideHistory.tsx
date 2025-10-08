@@ -13,50 +13,8 @@ import { useGetRideByIdQuery } from "@/redux/features/ride/ride.api"
 import RenderLoadning from "./RenderLoadning"
 import type { IRide } from "@/types/ride.type"
 
-const invoices = [
-  {
-    invoice: "INV001",
-    paymentStatus: "Paid",
-    totalAmount: "$250.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV002",
-    paymentStatus: "Pending",
-    totalAmount: "$150.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV003",
-    paymentStatus: "Unpaid",
-    totalAmount: "$350.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV004",
-    paymentStatus: "Paid",
-    totalAmount: "$450.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV005",
-    paymentStatus: "Paid",
-    totalAmount: "$550.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV006",
-    paymentStatus: "Pending",
-    totalAmount: "$200.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV007",
-    paymentStatus: "Unpaid",
-    totalAmount: "$300.00",
-    paymentMethod: "Credit Card",
-  },
-]
+import { useState } from "react"
+import PaginationBar from "./PaginationBar"
 
 export function UserRideHistory() {
   const {data,isLoading} = useUserInfoQuery()
@@ -64,13 +22,20 @@ export function UserRideHistory() {
   const role  = data?.data?.role
   const id = role === "rider" ? data?.data?.rider._id : role === "driver" ? data?.data?.driver._id: ""
   RenderLoadning(isLoading)
-  const {data:rideinfo,isLoading:isRideLoading} = useGetRideByIdQuery({role:id})
+   const [currentPage, setCurrentPage] = useState(1)
+  const {data:rideinfo,isLoading:isRideLoading} = useGetRideByIdQuery(`roleId:${id}&limit=1&page=${currentPage}`)
   RenderLoadning(isRideLoading)
   
   console.log({rideinfo});
+
+ 
+const totalPages = rideinfo?.meta?.totalPages || 1
+
+
   
   return (
-    <Table>
+    <div>
+      <Table>
       {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
       <TableHeader>
         <TableRow>
@@ -97,5 +62,9 @@ export function UserRideHistory() {
         </TableRow>
       </TableFooter> */}
     </Table>
+    {/* pagination */}
+    <PaginationBar totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage}></PaginationBar>
+    </div>
+    
   )
 }

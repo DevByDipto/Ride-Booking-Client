@@ -2,12 +2,18 @@ import type {ComponentType } from 'react';
 
 export type {IRegister,ILogin} from './auth.type.ts'
 
-
+interface IMeta{
+    page?:number;
+    limit?:number;
+    total?:number;
+    totalPages?:number;
+}
 export interface IResponse<T> {
   statusCode: number;
   success: boolean;
   message: string;
   data: T;
+  meta?:IMeta
 }
 
 export type TRole = "admin" | "driver" | "rider"

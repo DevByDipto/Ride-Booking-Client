@@ -12,7 +12,7 @@ createRide: builder.mutation<IResponse<any>,IRide>({
         body:data,
       }),
     }),
-getRideById: builder.query<IResponse<any>,{role:string}>({ 
+getRideById: builder.query<IResponse<any>,string>({ 
       query: (query) => ({
         url: `/ride?${query}`,
         method: "GET",
