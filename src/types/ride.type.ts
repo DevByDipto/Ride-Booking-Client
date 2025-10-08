@@ -25,6 +25,7 @@ export interface IRideTimestamps {
 }
 
 export interface IRide {
+  _id?:string,
   rider: string; 
   driver?: string; 
   pickupLocation: ILocation; 

@@ -8,10 +8,10 @@ export const driverSidebarItems= [
     {
       title: "driver route",
       items: [
-        {
-          title: "for driver All Ride",
-          url: "/dashboard/driver/all-ride",
-           Component: Allride
+       {
+          title: "Ride Details",
+          url: "/dashboard/driver/rideDetails",
+           Component: AllUser
         },
        
       ],

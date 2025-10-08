@@ -12,6 +12,7 @@ export const riderSidebarItems= [
           url: "/dashboard/rider/all-ride",
            Component: RiderAllRideHistory
         },
+       
       ],
     },
   ]

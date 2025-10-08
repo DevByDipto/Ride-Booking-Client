@@ -3,7 +3,7 @@ import type { IResponse } from "@/types";
 import { baseApi } from "../../baseApi";
 import type { IRide } from "@/types/ride.type";
 
-export const authApi = baseApi.injectEndpoints({
+export const rideApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
 createRide: builder.mutation<IResponse<any>,IRide>({ 
       query: (data) => ({
@@ -12,7 +12,13 @@ createRide: builder.mutation<IResponse<any>,IRide>({
         body:data,
       }),
     }),
+getRideById: builder.query<IResponse<any>,{role:string}>({ 
+      query: (query) => ({
+        url: `/ride?${query}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useCreateRideMutation } = authApi; 
+export const { useCreateRideMutation,useGetRideByIdQuery } = rideApi; 
