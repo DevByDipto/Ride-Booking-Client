@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,13 +17,29 @@ import { useRegisterMutation } from "../redux/features/auth/auth.api";
 import LoadingButton from "../components/shared/LoadingButton";
 import { Link, useLocation, useNavigate } from "react-router";
 import { toast } from "sonner";
-import type { IError } from "@/types";
+import type { IError, TRole } from "@/types";
 import ShowErrorToast from "@/components/shared/ShowErrorToast";
-
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import type { Tvehicle } from "@/types/driver.type";
+import { role } from "@/constants/role";
+import type { IUser, TVehicle } from "@/types/user.type";
+type userRole = "rider" | "driver";
 const Register = () => {
+  const [selectedVehicle, setSelectedVehicle] = useState("bike");
+  const [selectRole, setSelectRole] = useState("rider");
   const [register, { isLoading, isError, isSuccess }] = useRegisterMutation();
   const navigate = useNavigate();
-   const location = useLocation()
+  const location = useLocation();
+  const vehicles: Tvehicle[] = ["car", "bike", "zip"];
+  const roles: userRole[] = ["rider", "driver"];
   // console.log(location);
   const registerSchema = z.object({
     name: z.string().min(2).max(50),
@@ -43,14 +59,23 @@ const Register = () => {
 
   // 2. Define a submit handler.
   const onSubmit = async (values: z.infer<typeof registerSchema>) => {
+    const data :IUser = {
+      role: selectRole as TRole,
+      vehicleInfo: selectedVehicle as TVehicle,
+      ...values,
+    };
     try {
-      const res = await register(values).unwrap();
+      const res = await register(data).unwrap();
+      console.log(res);
+      
       if (res.success) {
         toast.success("congatulation! register successfull");
-        navigate("/login",{state:location.state});
+        navigate("/login", { state: location.state });
       }
     } catch (error) {
-    ShowErrorToast(error as IError<null>);
+      console.log(error);
+      
+      ShowErrorToast(error as IError<null>);
     }
   };
 
@@ -102,13 +127,61 @@ const Register = () => {
                 </FormItem>
               )}
             />
+            {/* role selection */}
+            <div className="">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline">select a role</Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56">
+                  <DropdownMenuLabel>chose your role</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuRadioGroup
+                    value={selectRole}
+                    onValueChange={setSelectRole}
+                  >
+                    {roles?.map((role: userRole) => (
+                      <DropdownMenuRadioItem key={role} value={role}>
+                        {role}
+                      </DropdownMenuRadioItem>
+                    ))}
+                  </DropdownMenuRadioGroup>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+            {/* vehicle selection */}
+
+            {selectRole == "driver" && (
+              <div>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline">select a vehicle</Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-56">
+                    <DropdownMenuLabel>chose your one</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuRadioGroup
+                      value={selectedVehicle}
+                      onValueChange={setSelectedVehicle}
+                    >
+                      {vehicles.map((vehicle: Tvehicle) => (
+                        <DropdownMenuRadioItem key={vehicle} value={vehicle}>
+                          {vehicle}
+                        </DropdownMenuRadioItem>
+                      ))}
+                    </DropdownMenuRadioGroup>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+            )}
+
             <LoadingButton isLoading={isLoading} type="submit">
               Sign Up
             </LoadingButton>
             <div className="text-muted-foreground flex justify-center gap-1 text-sm">
               <p>Already have a account? Please</p>
               <p
-               onClick={()=>navigate('/login',{state:location.state})}
+                onClick={() => navigate("/login", { state: location.state })}
                 className="text-primary font-medium hover:underline"
               >
                 Login

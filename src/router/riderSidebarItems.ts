@@ -1,4 +1,5 @@
 
+
 import { RiderAllRideHistory } from "@/page/ride/RiderAllrideHistory";
 import RiderProfile from "@/page/rider/RiderProfile";
 
@@ -18,6 +19,7 @@ export const riderSidebarItems= [
           url: "/dashboard/rider/profile",
            Component: RiderProfile
         },
+        
        
       ],
     },

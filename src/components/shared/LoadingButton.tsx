@@ -5,11 +5,12 @@ import { LoaderCircleIcon } from "lucide-react"
 import { Button } from "../ui/button"
 type LoadingButtonProps = {
   children: React.ReactNode;
-  type?: "button" | "submit"; // Optional prop, allowed values
-  isLoading?: boolean; // Optional prop to control loading state externally
+  type?: "button" | "submit"; 
+  isLoading?: boolean; 
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
-export default function LoadingButton({children,type ="button",isLoading}: LoadingButtonProps) {
+export default function LoadingButton({children,type ="button",isLoading,onClick}: LoadingButtonProps) {
 //   const [isLoading, setIsLoading] = useState<boolean>(false)
 
 //   const handleClick = () => {
@@ -22,7 +23,7 @@ export default function LoadingButton({children,type ="button",isLoading}: Loadi
 
   return (
     <Button
-    //   onClick={handleClick}
+      onClick={onClick}
       disabled={isLoading}
       data-loading={isLoading || undefined}
       className="group relative disabled:opacity-100"

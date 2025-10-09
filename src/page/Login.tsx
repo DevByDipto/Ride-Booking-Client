@@ -23,6 +23,7 @@ import ShowErrorToast from "@/components/shared/ShowErrorToast";
 import { role } from "@/constants/role";
 
 const Login = () => {
+  
   const [login, { isLoading, isError, isSuccess }] = useLoginMutation();
   const navigate = useNavigate();
   const location = useLocation();
@@ -106,9 +107,6 @@ const Login = () => {
                 </FormItem>
               )}
             />
-            {/* {
-  isLoading ? <div>Loading...</div> : <Button type="submit">Submit</Button>
-} */}
             <LoadingButton isLoading={isLoading} type="submit">
               Login
             </LoadingButton>
