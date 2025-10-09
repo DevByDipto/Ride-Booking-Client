@@ -6,4 +6,5 @@ export interface IUser {
     password?:string
     role: TRole
     vehicleInfo: TVehicle
+    phoneNumber:string
 }

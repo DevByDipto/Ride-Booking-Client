@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -21,9 +21,19 @@ import { Link, Navigate, useLocation, useNavigate } from "react-router";
 import type { IError } from "@/types";
 import ShowErrorToast from "@/components/shared/ShowErrorToast";
 import { role } from "@/constants/role";
-
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+// type userRole = "rider" | "driver";
 const Login = () => {
-  
+  // const [selectRole, setSelectRole] = useState("rider");
+  // const roles: userRole[] = ["rider", "driver"];
   const [login, { isLoading, isError, isSuccess }] = useLoginMutation();
   const navigate = useNavigate();
   const location = useLocation();
@@ -107,6 +117,28 @@ const Login = () => {
                 </FormItem>
               )}
             />
+            {/* role selection
+                        <div className="">
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button variant="outline">select a role</Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent className="w-56">
+                              <DropdownMenuLabel>chose your role</DropdownMenuLabel>
+                              <DropdownMenuSeparator />
+                              <DropdownMenuRadioGroup
+                                value={selectRole}
+                                onValueChange={setSelectRole}
+                              >
+                                {roles?.map((role: userRole) => (
+                                  <DropdownMenuRadioItem key={role} value={role}>
+                                    {role}
+                                  </DropdownMenuRadioItem>
+                                ))}
+                              </DropdownMenuRadioGroup>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </div> */}
             <LoadingButton isLoading={isLoading} type="submit">
               Login
             </LoadingButton>

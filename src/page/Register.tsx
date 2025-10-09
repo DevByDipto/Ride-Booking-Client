@@ -44,6 +44,12 @@ const Register = () => {
   const registerSchema = z.object({
     name: z.string().min(2).max(50),
     email: z.email(),
+    phoneNumber: z
+          .string()
+          .refine(
+            (val) => !val || /^\d{11}$/.test(val),
+            "Phone number must be exactly 11 digits if provided"
+          ),
     password: z.string().min(6).max(50),
   });
 
@@ -53,6 +59,7 @@ const Register = () => {
     defaultValues: {
       name: "",
       email: "",
+      phoneNumber:"",
       password: "",
     },
   });
@@ -63,6 +70,7 @@ const Register = () => {
       role: selectRole as TRole,
       vehicleInfo: selectedVehicle as TVehicle,
       ...values,
+      phoneNumber:values.phoneNumber,
     };
     try {
       const res = await register(data).unwrap();
@@ -108,6 +116,20 @@ const Register = () => {
                   <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input placeholder="email" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            {/* number field */}
+            <FormField
+              control={form.control}
+              name="phoneNumber"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Phone Number</FormLabel>
+                  <FormControl>
+                    <Input placeholder="number" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
