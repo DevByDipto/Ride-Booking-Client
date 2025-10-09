@@ -2,14 +2,14 @@
 import type { IResponse } from "@/types";
 import { baseApi } from "../../baseApi";
 import type { IRide } from "@/types/ride.type";
-import type { IDriver } from "@/types/driver.type";
+import type {  TDriverProfileUpdate } from "@/types/driver.type";
 
 export const driverApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-createDriver: builder.mutation<IResponse<any>,IDriver>({ 
-      query: (data) => ({
-        url: "/driver",
-        method: "POST",
+updateDriver: builder.mutation<IResponse<any>,TDriverProfileUpdate>({ 
+      query: ({id,...data}) => ({
+        url: `/driver/${id}`,
+        method: "PATCH",
         body:data,
       }),
     }),
@@ -22,4 +22,4 @@ createDriver: builder.mutation<IResponse<any>,IDriver>({
   }),
 });
 
-export const { useCreateDriverMutation } = driverApi; 
+export const { useUpdateDriverMutation } = driverApi; 

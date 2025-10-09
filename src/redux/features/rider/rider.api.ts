@@ -5,7 +5,7 @@ import type { IRider } from "@/types/rider.type";
 
 export const rideApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-updateRide: builder.mutation<IResponse<any>, Partial<IRider>>({ 
+updateRider: builder.mutation<IResponse<any>, Partial<IRider>>({ 
       query: ({id,...data}) => ({
         url: `/rider/${id}`,
         method: "PATCH",
@@ -22,4 +22,4 @@ updateRide: builder.mutation<IResponse<any>, Partial<IRider>>({
   }),
 });
 
-export const { useUpdateRideMutation } = rideApi; 
+export const { useUpdateRiderMutation } = rideApi; 

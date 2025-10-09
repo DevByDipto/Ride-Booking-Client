@@ -27,7 +27,7 @@ import { number, string, z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import LoadingButton from "@/components/shared/LoadingButton";
-import { useUpdateRideMutation } from "@/redux/features/rider/rider.api";
+import { useUpdateRiderMutation } from "@/redux/features/rider/rider.api";
 import { toast } from "sonner";
 
 const RiderProfile = () => {
@@ -35,7 +35,7 @@ const RiderProfile = () => {
   RenderLoadning(isLoading);
   const riderInfo = data?.data?.rider;
   // console.log(riderInfo);
-  const [ride] = useUpdateRideMutation();
+  const [ride] = useUpdateRiderMutation();
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const riderSchema = z.object({
@@ -54,7 +54,7 @@ const RiderProfile = () => {
     resolver: zodResolver(riderSchema),
     defaultValues: {
       name: riderInfo.name,
-      phoneNumber: riderInfo.phoneNumber,
+      phoneNumber: riderInfo.phoneNumber, 
       password: '',
     },
   });
@@ -65,7 +65,7 @@ const RiderProfile = () => {
     const rideData = {
       id: data?.data?.rider?._id as string,
        name:value.name || riderInfo.name,
-      phoneNumber: Number(value.phoneNumber) || riderInfo.phoneNumber,
+      phoneNumber: value.phoneNumber || riderInfo.phoneNumber,
       password:value.password || data?.data?.password,
     };
     console.log(rideData);

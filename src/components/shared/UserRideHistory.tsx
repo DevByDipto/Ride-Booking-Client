@@ -58,6 +58,7 @@ import PaginationBar from "./PaginationBar"
 // ]
 export function UserRideHistory() {
   const {data,isLoading} = useUserInfoQuery()
+  console.log({data});
   
   const role  = data?.data?.role
   const id = role === "rider" ? data?.data?.rider._id : role === "driver" ? data?.data?.driver._id: ""

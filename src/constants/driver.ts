@@ -1,0 +1,1 @@
+export const VEHICLES = ["bike", "car", "zip"] as const;

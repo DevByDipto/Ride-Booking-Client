@@ -16,6 +16,7 @@ import NotFound from "@/page/NotFound";
 import BlockedPage from "@/page/BlockedPage";
 import RiderPrivateRoute from "./RiderPrivateRoute";
 import { riderSidebarItems } from "./riderSidebarItems";
+import { driverSidebarItems } from "./driverSidebaritems";
 
 export const router = createBrowserRouter([
   {
@@ -47,6 +48,17 @@ export const router = createBrowserRouter([
     ),
     children: [{ index: true, element: <Navigate to="/dashboard/rider/all-ride" /> },
       ...generateRouteFromSidebar(riderSidebarItems),
+    ],
+  },
+  {
+    path: "/dashboard/driver",
+    element: (
+      // <RiderPrivateRoute role="rider">
+        <DashBoardLayout />
+      // </RiderPrivateRoute>
+    ),
+    children: [{ index: true, element: <Navigate to="/dashboard/driver/profile" /> },
+      ...generateRouteFromSidebar(driverSidebarItems),
     ],
   },
   {
