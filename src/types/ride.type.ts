@@ -35,4 +35,5 @@ export interface IRide {
   updatedBy?: TRole;
   fare: number;
   isPaymentCompleted?: boolean;
+  
 }

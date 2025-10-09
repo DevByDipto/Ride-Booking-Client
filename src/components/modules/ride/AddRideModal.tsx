@@ -36,7 +36,7 @@ import { useState } from "react";
 const AddRideModal = () => {
 
       const { data: userData } = useUserInfoQuery();
-      const [rideBooking, { data: ride, isLoading }] = useCreateRideMutation();
+      const [rideBooking, {  isLoading }] = useCreateRideMutation();
       const [dialogOpen, setDialogOpen] = useState(false);
       const riderSchema = z.object({
         pickupLocation: z.string(),
@@ -93,14 +93,14 @@ const AddRideModal = () => {
   return (
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">Add Ride</Button>
+        <Button variant="outline">Book Ride</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Edit profile</DialogTitle>
+          <DialogTitle>Book Ride</DialogTitle>
           <DialogDescription>
-            Make changes to your profile here. Click save when you&apos;re done.
-          </DialogDescription>
+  Fill in the details below to book your ride. Click confirm when you’re ready.
+</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">

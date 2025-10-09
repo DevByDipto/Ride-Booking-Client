@@ -23,14 +23,14 @@ const PaginationBar = ({totalPages,currentPage,setCurrentPage}:IPaginationProps)
 }
 
   return (
-    <div>{
+    <div className='mt-5 border border-primary-secondary inline-block p-1 rounded-2xl'>{
       totalPages > 1 && <Pagination>
     <PaginationContent>
       <PaginationItem>
         <PaginationPrevious
           href="#"
           onClick={() => handlePageChange(currentPage > 1 ? currentPage - 1: 1)}
-          className={`${currentPage == 1 && 'opacity-0'} `}
+          className={`${currentPage == 1 && 'opacity-30'} `}
         />
       </PaginationItem>
 
@@ -50,7 +50,7 @@ const PaginationBar = ({totalPages,currentPage,setCurrentPage}:IPaginationProps)
         <PaginationNext
           href="#"
          onClick={() => handlePageChange(currentPage < totalPages ? currentPage + 1: totalPages)}
-          className={`${currentPage == totalPages && 'opacity-0'} `}
+          className={`${currentPage == totalPages && 'opacity-30'} `}
         />
       </PaginationItem>
     </PaginationContent>
