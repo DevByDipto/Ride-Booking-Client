@@ -26,7 +26,7 @@ import type { IError } from "@/types";
 
 
 
-export default function UserMenu() {
+export default function UserMenu({name}:{name:string}) {
   const [logout] = useLogoutMutation();
   const dispatch = useDispatch();
 
@@ -50,7 +50,7 @@ export default function UserMenu() {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="h-auto p-0 hover:bg-transparent">
           <Avatar>
-            <AvatarImage src="./avatar.jpg" alt="Profile image" />
+            <AvatarImage src={`https://api.dicebear.com/9.x/initials/svg?seed=${name}`} alt="Profile image" />
             <AvatarFallback>KK</AvatarFallback>
           </Avatar>
         </Button>

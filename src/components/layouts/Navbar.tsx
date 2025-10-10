@@ -25,7 +25,7 @@ export default function Navbar() {
   const { data: user, isLoading,error } = useUserInfoQuery();
   console.log(error);
   
-  // console.log("user", user);
+  console.log("user", user);
   if (isLoading) {
     return <Loading />;
   }
@@ -196,7 +196,7 @@ export default function Navbar() {
         <div className="flex flex-1 items-center justify-end gap-4">
           {/* User menu */}
           {user ? (
-            <UserMenu />
+            <UserMenu name={user?.data?.name} />
           ) : (
             <>
               <Button>

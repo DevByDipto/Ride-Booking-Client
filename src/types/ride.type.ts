@@ -1,6 +1,6 @@
 import type { TRole } from ".";
 
-export type RideStatus =
+export type TRideStatus =
   | "requested"
   | "accepted"
   | "picked-up"
@@ -30,10 +30,18 @@ export interface IRide {
   driver?: string; 
   pickupLocation: ILocation; 
   destinationLocation: ILocation; 
-  status: RideStatus; 
+  status: TRideStatus; 
   timestamps: IRideTimestamps; 
   updatedBy?: TRole;
   fare: number;
   isPaymentCompleted?: boolean;
   
+}
+
+export interface IRideStatusUpdate{
+  rider?: string;
+  driver?: string;
+  updatedBy: TRole;
+  status: TRideStatus;
+  timestamps: IRideTimestamps;
 }

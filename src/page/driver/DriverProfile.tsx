@@ -71,7 +71,7 @@ const DriverProfile = () => {
       name: driverInfo?.name || "",
       phoneNumber: driverInfo?.phoneNumber || "",
       password: "",
-      availability: driverInfo?.availability || false,
+      availability: driverInfo?.availability,
       vehicleInfo: driverInfo?.vehicleInfo,
     },
   });
@@ -89,16 +89,20 @@ const DriverProfile = () => {
   
 // if(isLoading)return <h1 className="text-red-500">loading</h1>
   const onSubmit = async (value: z.infer<typeof driverSchema>) => {
+    // console.log( driverInfo.availability);
+    
+    // console.log(value.availability);
+    
     const driverData :TDriverUpdate = {
       id: driverInfo?._id as string,
       name: value.name || driverInfo?.name,
       phoneNumber: value.phoneNumber || driverInfo?.phoneNumber,
       password: value.password || data?.data?.password,
-       availability:value.availability || driverInfo.availability,
+       availability: value.availability ?? driverInfo.availability,
       vehicleInfo: value.vehicleInfo || driverInfo.vehicleInfo,
     };
-    console.log(driverData);
-    console.log("driverinfo");
+    // console.log(driverData.availability);
+    // console.log("driverinfo");
     
 
     try {

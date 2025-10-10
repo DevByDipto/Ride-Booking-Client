@@ -17,6 +17,7 @@ import {
 import getSidebarByRole from "@/utils/getSidebarByRole"
 import { useUserInfoQuery } from "@/redux/features/auth/auth.api"
 import { Link } from "react-router"
+import Logo from "./ui/logo"
 
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -36,11 +37,15 @@ const data = {
   return (
     <Sidebar {...props}>
       <SidebarHeader>
-        <VersionSwitcher
+        <Link to='/'>
+        <Logo></Logo>
+        </Link>
+        
+        {/* <VersionSwitcher
           versions={data.versions}
           defaultVersion={data.versions[0]}
-        />
-        <SearchForm />
+        /> */}
+        {/* <SearchForm /> */}
       </SidebarHeader>
       <SidebarContent>
         {/* We create a SidebarGroup for each parent. */}
