@@ -196,7 +196,10 @@ export default function Navbar() {
         <div className="flex flex-1 items-center justify-end gap-4">
           {/* User menu */}
           {user ? (
+            <> 
+            <h2>{user?.data?.name}</h2>
             <UserMenu name={user?.data?.name} />
+            </>
           ) : (
             <>
               <Button>

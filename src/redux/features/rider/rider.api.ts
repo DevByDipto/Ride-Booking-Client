@@ -5,21 +5,27 @@ import type { IRider } from "@/types/rider.type";
 
 export const rideApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-updateRider: builder.mutation<IResponse<any>, Partial<IRider>>({ 
-      query: ({id,...data}) => ({
-        url: `/rider/${id}`,
+    updateRider: builder.mutation<IResponse<any>, Partial<IRider>>({
+      query: ({ _id, ...data }) => ({
+        url: `/rider/${_id}`,
         method: "PATCH",
-        body:data,
+        body: data,
       }),
-       invalidatesTags: ['User'] // refetch kaj korche nah keno ?(support)
+      invalidatesTags: ['User'] // refetch kaj korche nah keno ?(support)
     }),
-// getRideById: builder.query<IResponse<any>,string>({ 
-//       query: (query) => ({
-//         url: `/ride?${query}`,
-//         method: "GET",
-//       }),
-//     }),
+    getRiderById: builder.query<IResponse<any>, string>({
+      query: (id) => ({
+        url: `/ride/${id}`,
+        method: "GET",
+      }),
+    }),
+    getAllRider: builder.query<IResponse<any>, string>({
+      query: (query) => ({
+        url: `/rider?${query}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useUpdateRiderMutation } = rideApi; 
+export const { useUpdateRiderMutation,useGetRiderByIdQuery,useGetAllRiderQuery } = rideApi; 

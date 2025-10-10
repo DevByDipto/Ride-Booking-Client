@@ -1,10 +1,11 @@
 import Allride from "@/page/admin/Allride";
 import AllRider from "@/page/admin/AllRider";
-import AllUser from "@/page/admin/AllUser";
+
 import DriverAllRideHistory from "@/page/driver/DriverAllRideHistory";
 import DriverInactive from "@/page/driver/DriverInactive";
 import DriverProfile from "@/page/driver/DriverProfile";
 import IncomingRides from "@/page/driver/IncomingRides";
+import RideManagement from "@/page/driver/RideManagement";
 
 
 
@@ -27,6 +28,11 @@ export const driverSidebarItems= [
           title: "Incoming Rides",
           url: "/dashboard/driver/incomingRides",
            Component: DriverInactive(IncomingRides)
+        },
+       {
+          title: "Ride Management",
+          url: "/dashboard/driver/rideManagement",
+           Component: DriverInactive(RideManagement)
         },
        
       ],

@@ -5,7 +5,7 @@ import Login from "../page/Login";
 import CommonLayout from "../components/layouts/CommonLayout";
 import Hero from "../page/Hero";
 import DashBoardLayout from "@/components/layouts/DashBoardLayout";
-import AllUser from "@/page/admin/AllUser";
+
 import AllRider from "@/page/admin/AllRider";
 import Allride from "@/page/admin/Allride";
 import Unauthorized from "@/page/Unauthorized";
@@ -35,7 +35,7 @@ export const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
-      { index: true, element: <Navigate to="/dashboard/admin/all-user" /> },
+      { index: true, element: <Navigate to="/dashboard/admin/profile" /> },
       ...generateRouteFromSidebar(adminSidebarItems),
     ],
   },
@@ -46,7 +46,7 @@ export const router = createBrowserRouter([
         <DashBoardLayout />
       </RiderPrivateRoute>
     ),
-    children: [{ index: true, element: <Navigate to="/dashboard/rider/all-ride" /> },
+    children: [{ index: true, element: <Navigate to="/dashboard/rider/profile" /> },
       ...generateRouteFromSidebar(riderSidebarItems),
     ],
   },

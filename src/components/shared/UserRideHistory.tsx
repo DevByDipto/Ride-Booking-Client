@@ -58,13 +58,13 @@ import PaginationBar from "./PaginationBar"
 // ]
 export function UserRideHistory() {
   const {data,isLoading} = useUserInfoQuery()
-  console.log({data});
+  // console.log({data});
   
   const role  = data?.data?.role
   const id = role === "rider" ? data?.data?.rider._id : role === "driver" ? data?.data?.driver._id: ""
   RenderLoadning(isLoading)
    const [currentPage, setCurrentPage] = useState(1)
-  const {data:rideinfo,isLoading:isRideLoading} = useGetRideByIdQuery(`roleId:${id}&limit=1&page=${currentPage}`)
+  const {data:rideinfo,isLoading:isRideLoading} = useGetRideByIdQuery(`${role}Id=${id}&limit=10&page=${currentPage}`)
   RenderLoadning(isRideLoading)
   // ------
   //   const [open, setOpen] = React.useState(false)

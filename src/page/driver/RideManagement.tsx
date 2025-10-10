@@ -1,5 +1,7 @@
-import {  useGetRidesQuery, useUpdateRidesStatusMutation } from "@/redux/features/ride/ride.api";
-import React from "react";
+import { rideStatus } from '@/constants/ride'
+import { useUserInfoQuery } from '@/redux/features/auth/auth.api'
+import { useGetRideByIdQuery, useUpdateRidesStatusMutation } from '@/redux/features/ride/ride.api'
+import React from 'react'
 import {
   Table,
   TableBody,
@@ -10,29 +12,34 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import type { IRide, IRideStatusUpdate, TRideStatus } from "@/types/ride.type";
-import { Button } from "@/components/ui/button";
-import { role } from "@/constants/role";
-import { rideStatus } from "@/constants/ride";
-import type { TRole } from "@/types";
-import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
-import { toast } from "sonner";
+import type { IRide, IRideStatusUpdate, TRideStatus } from '@/types/ride.type';
+import { Button } from '@/components/ui/button';
+import { getNextRideStatus } from '@/utils/getNextRideStatus';
+import Loading from '@/components/shared/Loading';
+import { role } from '@/constants/role';
+import { toast } from 'sonner';
+import type { TRole } from '@/types';
 
-const IncomingRides = () => {
-  const { data,refetch } = useGetRidesQuery();
-  const { data: driverData } = useUserInfoQuery();
-  const[updateRidesStatus] = useUpdateRidesStatusMutation()
-  const driverID = driverData?.data.driver._id;
-  const rideInfo = data?.data;
-  console.log({rideInfo});
+const RideManagement = () => {
+  const {data:driverInfo,isLoading} = useUserInfoQuery()
+  const driverId = driverInfo?.data?.driver?._id
 
-  const handleAcceptRide =async (id:string) => {
+     const {data,refetch} = useGetRideByIdQuery(`driverId=${driverId}&exclude=${rideStatus.Requested,rideStatus.Cancelled,rideStatus.Completed}`)
+     const rideInfo = data?.data
+     const[updateRidesStatus] = useUpdateRidesStatusMutation()
+     if(isLoading)return <Loading/>
+  
+console.log(rideInfo);
+
+  const handleRideStatusRide =async (id:string,status:string) => {
     const rideUpdateData: IRideStatusUpdate = {
-      driver: driverID,
+      driver: driverId,
       updatedBy: role.DRIVER as TRole,
-      status: rideStatus.Accepted as TRideStatus,
-      timestamps: { acceptedAt: new Date(new Date().toISOString()) },
+      status: status as TRideStatus,
+      timestamps: { [`${status}At`]: new Date().toISOString() },
     };
+    console.log(rideUpdateData);
+    
     try {
       const res = await updateRidesStatus({id,...rideUpdateData}).unwrap()
       console.log({res});
@@ -45,16 +52,14 @@ const IncomingRides = () => {
       console.log(error);
       
     }
-    console.log(rideUpdateData);
+    // console.log(id);
   };
-
   if(!rideInfo?.length){
-  return <h1>No ride avaiable</h1>
+  return <h1>you have not assigned any ride</h1>
   }
 
   return (
     <div>
-      {" "}
       <Table>
         {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
         <TableHeader>
@@ -77,12 +82,12 @@ const IncomingRides = () => {
               <TableCell className="font-medium">
                 {ride.pickupLocation.name}$
               </TableCell>
-              <TableCell className="font-medium">{ride?.fare}$</TableCell>
+              <TableCell className="font-medium">{ride.fare}$</TableCell>
               <TableCell className="font-medium">
                 {ride.destinationLocation.name}$
               </TableCell>
               <TableCell>
-                <Button onClick={()=>handleAcceptRide(ride._id as string)}>Accept</Button>
+                <Button onClick={()=>handleRideStatusRide(ride._id as string,getNextRideStatus(ride?.status) as string)}>{getNextRideStatus(ride?.status)}</Button>
               </TableCell>
             </TableRow>
           ))}
@@ -94,8 +99,8 @@ const IncomingRides = () => {
         </TableRow>
       </TableFooter> */}
       </Table>
-    </div>
-  );
-};
+      </div>
+  )
+}
 
-export default IncomingRides;
+export default RideManagement

@@ -22,7 +22,7 @@ import { useLogoutMutation } from "@/redux/features/auth/auth.api";
 import { useDispatch } from "react-redux";
 import { baseApi } from "@/redux/baseApi";
 import ShowErrorToast from "../shared/ShowErrorToast";
-import type { IError } from "@/types";
+// import type { IError } from "@/types";
 
 
 
@@ -39,7 +39,9 @@ export default function UserMenu({name}:{name:string}) {
       }
       // console.log(res);
     } catch (error) {
-      ShowErrorToast(error as IError<null>);
+      console.log(error);
+      
+      // ShowErrorToast(error as IError<null>);
     }
   };
 
@@ -55,6 +57,7 @@ export default function UserMenu({name}:{name:string}) {
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
+        
       <DropdownMenuContent className="max-w-64" align="end">
         {/* <DropdownMenuLabel className="flex min-w-0 flex-col">
           <span className="text-foreground truncate text-sm font-medium">
