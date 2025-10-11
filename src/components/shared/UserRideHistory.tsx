@@ -9,13 +9,15 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { useUserInfoQuery } from "@/redux/features/auth/auth.api"
-import { useGetRideByIdQuery } from "@/redux/features/ride/ride.api"
+import { useGetRidesByRoleQuery } from "@/redux/features/ride/ride.api"
 import RenderLoadning from "./RenderLoadning"
 import type { IRide } from "@/types/ride.type"
 import React from "react"
 import { useState } from "react"
 import PaginationBar from "./PaginationBar"
 import TableFilter from "./TableFilter"
+import { Button } from "../ui/button"
+import { Link } from "react-router"
 
 export function UserRideHistory() {
   const {data,isLoading} = useUserInfoQuery()
@@ -25,7 +27,7 @@ export function UserRideHistory() {
   const id = role === "rider" ? data?.data?.rider._id : role === "driver" ? data?.data?.driver._id: ""
   RenderLoadning(isLoading)
    const [currentPage, setCurrentPage] = useState(1)
-  const {data:rideinfo,isLoading:isRideLoading} = useGetRideByIdQuery(`${role}Id=${id}&limit=10&page=${currentPage}`)
+  const {data:rideinfo,isLoading:isRideLoading} = useGetRidesByRoleQuery(`${role}Id=${id}&limit=10&page=${currentPage}`)
   RenderLoadning(isRideLoading)
  
 const totalPages = rideinfo?.meta?.totalPages || 1
@@ -73,6 +75,7 @@ const handleClear = () => {
           <TableHead>Fare Range</TableHead>
           <TableHead className="">DestinationLocation</TableHead>
           <TableHead>Status</TableHead>
+          <TableHead>Ride Details</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -81,10 +84,11 @@ const handleClear = () => {
             <TableCell className="font-medium ">{ride?.timestamps?.requestedAt
     ? new Date(ride.timestamps.requestedAt).toLocaleString()
     : "N/A"}</TableCell>
-    <TableCell className="font-medium">{ride.pickupLocation.name}$</TableCell>
+    <TableCell className="font-medium">{ride.pickupLocation.name}</TableCell>
     <TableCell className="font-medium">{ride.fare}$</TableCell>
-    <TableCell className="font-medium">{ride.destinationLocation.name}$</TableCell>
+    <TableCell className="font-medium">{ride.destinationLocation.name}</TableCell>
             <TableCell>{ride.status}</TableCell>
+            <TableCell><Link to={`/dashboard/${role}/ride-details/${ride._id}`}>Details</Link></TableCell>
           </TableRow>
         ))}
       </TableBody>

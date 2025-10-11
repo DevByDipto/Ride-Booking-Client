@@ -1,6 +1,6 @@
 import { rideStatus } from '@/constants/ride'
 import { useUserInfoQuery } from '@/redux/features/auth/auth.api'
-import { useGetRideByIdQuery, useUpdateRidesStatusMutation } from '@/redux/features/ride/ride.api'
+import { useGetRidesByRoleQuery, useUpdateRidesStatusMutation } from '@/redux/features/ride/ride.api'
 import React from 'react'
 import {
   Table,
@@ -24,7 +24,7 @@ const RideManagement = () => {
   const {data:driverInfo,isLoading} = useUserInfoQuery()
   const driverId = driverInfo?.data?.driver?._id
 
-     const {data,refetch} = useGetRideByIdQuery(`driverId=${driverId}&exclude=${rideStatus.Requested,rideStatus.Cancelled,rideStatus.Completed}`)
+     const {data,refetch} = useGetRidesByRoleQuery(`driverId=${driverId}&exclude=${rideStatus.Requested,rideStatus.Cancelled,rideStatus.Completed}`)
      const rideInfo = data?.data
      const[updateRidesStatus] = useUpdateRidesStatusMutation()
      if(isLoading)return <Loading/>

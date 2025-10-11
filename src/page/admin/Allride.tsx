@@ -15,6 +15,7 @@ import { useGetAllRidesQuery } from "@/redux/features/ride/ride.api"
 import type { IRide } from "@/types/ride.type"
 import React from "react"
 import { useState } from "react"
+import { Link } from "react-router"
 
 export function AllRide() {
 
@@ -73,6 +74,7 @@ const handleClear = () => {
           <TableHead>Fare Range</TableHead>
           <TableHead className="">DestinationLocation</TableHead>
           <TableHead>Status</TableHead>
+          <TableHead>Details</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -85,6 +87,7 @@ const handleClear = () => {
     <TableCell className="font-medium">{ride.fare}$</TableCell>
     <TableCell className="font-medium">{ride.destinationLocation.name}</TableCell>
             <TableCell>{ride.status}</TableCell>
+            <TableCell><Link to={`/dashboard/admin/ride-details/${ride._id}`}>Details</Link></TableCell>
           </TableRow>
         ))}
       </TableBody>

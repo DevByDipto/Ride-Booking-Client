@@ -5,6 +5,7 @@ import DriverInactive from "@/page/driver/DriverInactive";
 import DriverProfile from "@/page/driver/DriverProfile";
 import IncomingRides from "@/page/driver/IncomingRides";
 import RideManagement from "@/page/driver/RideManagement";
+import RideDetails from "@/page/ride/RideDetails";
 
 
 
@@ -32,6 +33,10 @@ export const driverSidebarItems= [
           title: "Ride Management",
           url: "/dashboard/driver/rideManagement",
            Component: DriverInactive(RideManagement)
+        },
+         {
+          url: "/dashboard/driver/ride-details/:id", 
+          Component: RideDetails
         },
        
       ],
