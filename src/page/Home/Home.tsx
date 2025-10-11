@@ -1,3 +1,4 @@
+import CallToActionSection from '@/components/modules/home/CallToActionSection'
 import Hero from '@/components/modules/home/Hero'
 import HowItWorksOverview from '@/components/modules/home/HowItWorksOverview'
 import ServiceHighlights from '@/components/modules/home/ServiceHighlights'
@@ -11,6 +12,7 @@ const Home = () => {
         <HowItWorksOverview/>
         <ServiceHighlights/>
         <TestimonialsSection/>
+        <CallToActionSection/>
     </div>
   )
 }
