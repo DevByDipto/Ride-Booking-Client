@@ -16,6 +16,10 @@ import { riderSidebarItems } from "./riderSidebarItems";
 import { driverSidebarItems } from "./driverSidebaritems";
 import HowItWorksOverview from "@/components/modules/home/HowItWorksOverview";
 import Home from "@/page/Home/Home";
+import AboutUsSection from "@/page/AboutUs";
+import FeaturesSection from "@/page/Features";
+import ContactSection from "@/page/ContactSection";
+import FAQSection from "@/page/FAQSection";
 
 export const router = createBrowserRouter([
   {
@@ -58,6 +62,22 @@ export const router = createBrowserRouter([
     children: [{ index: true, element: <Navigate to="/dashboard/driver/profile" /> },
       ...generateRouteFromSidebar(driverSidebarItems),
     ],
+  },
+  {
+    path: "/about-us",
+    Component: AboutUsSection,
+  },
+  {
+    path: "/features",
+    Component: FeaturesSection,
+  },
+  {
+    path: "/Contact",
+    Component: ContactSection,
+  },
+  {
+    path: "/faq",
+    Component: FAQSection,
   },
   {
     path: "/register",

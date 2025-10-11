@@ -1,4 +1,8 @@
-import { HouseIcon, InboxIcon, SparklesIcon, ZapIcon } from "lucide-react";
+import { Home,
+  Info,
+  ListChecks,
+  Mail,
+  HelpCircle, InboxIcon, SparklesIcon, ZapIcon } from "lucide-react";
 
 import Logo from "../ui/logo";
 import UserMenu from "../ui/user-menu";
@@ -30,7 +34,11 @@ export default function Navbar() {
     return <Loading />;
   }
   const navigationLinks = [
-    { href: "#", label: "Home", icon: HouseIcon, active: true, role: "public" },
+      { href: "/", label: "Home", icon: Home, active: true, role: "public" },
+  { href: "/about-us", label: "About", icon: Info, role: "public" },
+  { href: "/features", label: "Features", icon: ListChecks, role: "public" },
+  { href: "/contact", label: "Contact", icon: Mail, role: "public" },
+  { href: "/faq", label: "FAQ", icon: HelpCircle, role: "public" },
    
     {
       href: `/dashboard/admin`,
