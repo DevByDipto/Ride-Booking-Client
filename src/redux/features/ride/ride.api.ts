@@ -27,6 +27,13 @@ getRides: builder.query<IResponse<any>,void>({
       }),
       providesTags:["Ride"]
     }),
+getAllRides: builder.query<IResponse<any>,void>({ 
+      query: () => ({
+        url: `/ride`,
+        method: "GET",
+      }),
+      providesTags:["Ride"]
+    }),
     updateRidesStatus: builder.mutation<IResponse<any>,{ id: string } & IRideStatusUpdate>({ 
       query: ({id,...data}) => ({
         url: `/ride/${id}`,
@@ -38,4 +45,4 @@ getRides: builder.query<IResponse<any>,void>({
   }),
 });
 
-export const { useCreateRideMutation,useGetRideByIdQuery,useGetRidesQuery,useUpdateRidesStatusMutation } = rideApi; 
+export const { useCreateRideMutation,useGetRideByIdQuery,useGetRidesQuery,useGetAllRidesQuery,useUpdateRidesStatusMutation } = rideApi; 

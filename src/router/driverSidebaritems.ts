@@ -1,5 +1,4 @@
-import Allride from "@/page/admin/Allride";
-import AllRider from "@/page/admin/AllRider";
+
 
 import DriverAllRideHistory from "@/page/driver/DriverAllRideHistory";
 import DriverInactive from "@/page/driver/DriverInactive";

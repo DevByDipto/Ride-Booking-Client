@@ -1,6 +1,7 @@
 
 import AdminProfile from "@/page/admin/AdminProfile";
 import AllDriver from "@/page/admin/AllDriver";
+import { AllRide } from "@/page/admin/Allride";
 import AllRider from "@/page/admin/AllRider";
 
 
@@ -10,6 +11,11 @@ export const adminSidebarItems= [
     {
       title: "admin route",
       items: [
+         {
+          title: "Admin Profile",
+          url: "/dashboard/admin/profile", 
+           Component: AdminProfile
+        },
         {
           title: "All Driver",
           url: "/dashboard/admin/all-driver", 
@@ -21,9 +27,9 @@ export const adminSidebarItems= [
            Component: AllRider
         },
         {
-          title: "Admin Profile",
-          url: "/dashboard/admin/profile", 
-           Component: AdminProfile
+          title: "All ride",
+          url: "/dashboard/admin/all-ride", 
+          Component: AllRide
         },
          
        

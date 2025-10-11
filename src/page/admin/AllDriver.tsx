@@ -12,7 +12,6 @@ import {
 import { Button } from "@/components/ui/button";
 import type { IRider } from "@/types/rider.type";
 import { toast } from "sonner";
-import PaginationBar from "@/components/shared/PaginationBar";
 import {
   useGetAllDriverQuery,
   useUpdateDriverApprovalMutation,
@@ -28,15 +27,17 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import TableFilter from "@/components/shared/TableFilter";
+import PaginationBar from "@/components/shared/PaginationBar";
 
 const AllDriver = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectIsApprove, setSelectIsApprove] = useState("");
-  const { data, refetch } = useGetAllDriverQuery(`limit=1&page=${currentPage}`);
+  const { data, refetch } = useGetAllDriverQuery(`limit=10&page=${currentPage}`);
   const driverInfo = data?.data;
   const [updateDriver] = useUpdateDriverApprovalMutation();
-  const totalPages = data?.meta?.totalPages || 1;
-  //   console.log(data);
+  const totalPages = data?.meta?.totalPages || 2;
+    console.log(data);
   const isApproved = ["pending", "approved", "suspend"];
 
     const handleApproval = async (id:string,aprovalValue:string) => {
@@ -57,8 +58,42 @@ const AllDriver = () => {
       // console.log(value, _id);
     };
 
+
+
+    const [searchText, setSearchText] = useState("");
+      // const [statusFilter, setStatusFilter] = useState();
+    const handleClear = () => {
+        setSearchText("");
+        // setStatusFilter();
+      };
+    
+      const filteredData = driverInfo?.filter((item:IDriver) => {
+        // console.log(item);
+        
+        const matchSearch = item?.vehicleInfo?.toLowerCase().includes(searchText.toLowerCase());
+        // console.log(matchSearch);
+        
+        // const matchStatus = statusFilter ? item?.availability === statusFilter : true;
+    // console.log(matchStatus);
+    
+        return matchSearch ;
+      });
+      // const filterOptions = driverInfo?.map((item:IDriver)=>{
+      //   return {label: item?.isApproved, value: item?.isApproved}
+      // })
+      // console.log(filterOptions);
   return (
     <div>
+        <TableFilter
+              searchPlaceholder="Search by vehicleInfo..."
+              searchValue={searchText}
+              onSearchChange={setSearchText}
+              // filterLabel="Status"
+              // filterOptions={filterOptions}
+              // selectedFilter={statusFilter}
+              // onFilterChange={setStatusFilter}
+              onClear={handleClear}
+            />
       <Table>
         <TableHeader>
           <TableRow>
@@ -74,7 +109,7 @@ const AllDriver = () => {
         </TableHeader>
 
         <TableBody>
-          {driverInfo?.map((driver: IDriver) => (
+          {filteredData?.map((driver: IDriver) => (
             <TableRow key={driver._id}>
               <TableCell className="font-medium">{driver?.name}</TableCell>
               <TableCell>{driver?.email}</TableCell>
@@ -140,12 +175,10 @@ const AllDriver = () => {
           ))}
         </TableBody>
       </Table>
-      .{/* pagination */}
-      <PaginationBar
-        totalPages={totalPages}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      ></PaginationBar>
+      {/* pagination */}
+     <div >
+      <PaginationBar totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage}></PaginationBar>
+     </div>
     </div>
   );
 };

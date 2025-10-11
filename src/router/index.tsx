@@ -1,13 +1,10 @@
 import { createBrowserRouter, Navigate } from "react-router";
-import App from "../App";
 import Register from "../page/Register";
 import Login from "../page/Login";
 import CommonLayout from "../components/layouts/CommonLayout";
-import Hero from "../page/Hero";
 import DashBoardLayout from "@/components/layouts/DashBoardLayout";
 
-import AllRider from "@/page/admin/AllRider";
-import Allride from "@/page/admin/Allride";
+
 import Unauthorized from "@/page/Unauthorized";
 import PrivateRoute from "./privateRoute";
 import generateRouteFromSidebar from "@/utils/generateRouteFromSidebar";
@@ -17,14 +14,15 @@ import BlockedPage from "@/page/BlockedPage";
 import RiderPrivateRoute from "./RiderPrivateRoute";
 import { riderSidebarItems } from "./riderSidebarItems";
 import { driverSidebarItems } from "./driverSidebaritems";
+import HowItWorksOverview from "@/components/modules/home/HowItWorksOverview";
+import Home from "@/page/Home/Home";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     Component: CommonLayout,
     children: [
-      { path: "/", Component: Hero },
-      { path: "/hero", Component: Hero },
+      { path: "/", Component: Home },
     ],
   },
   {
