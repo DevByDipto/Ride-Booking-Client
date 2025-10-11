@@ -31,8 +31,7 @@ export default function Navbar() {
   }
   const navigationLinks = [
     { href: "#", label: "Home", icon: HouseIcon, active: true, role: "public" },
-    { href: "#", label: "Inbox", icon: InboxIcon, role: "public" },
-    { href: "#", label: "Insights", icon: ZapIcon, role: "public" },
+   
     {
       href: `/dashboard/admin`,
       label: "dashboard",
@@ -154,6 +153,7 @@ export default function Navbar() {
                       href={link.href}
                       className="text-foreground hover:text-primary flex-row items-center gap-2 py-1.5 font-medium"
                     >
+                      <Link to={link.href}></Link>
                       <Icon
                         size={16}
                         className="text-muted-foreground/80"
@@ -171,6 +171,7 @@ export default function Navbar() {
                       href={link.href}
                       className="text-foreground hover:text-primary flex-row items-center gap-2 py-1.5 font-medium"
                     >
+                      <Link to={link.href}></Link>
                       <Icon
                         size={16}
                         className="text-muted-foreground/80"

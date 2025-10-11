@@ -15,47 +15,8 @@ import type { IRide } from "@/types/ride.type"
 import React from "react"
 import { useState } from "react"
 import PaginationBar from "./PaginationBar"
-// ------------------
+import TableFilter from "./TableFilter"
 
-// import { Check, ChevronsUpDown } from "lucide-react"
-// import { cn } from "@/lib/utils"
-// import { Button } from "@/components/ui/button"
-// import {
-//   Command,
-//   CommandEmpty,
-//   CommandGroup,
-//   CommandInput,
-//   CommandItem,
-//   CommandList,
-// } from "@/components/ui/command"
-// import {
-//   Popover,
-//   PopoverContent,
-//   PopoverTrigger,
-// } from "@/components/ui/popover"
-
-// const frameworks = [
-//   {
-//     value: "next.js",
-//     label: "Next.js",
-//   },
-//   {
-//     value: "sveltekit",
-//     label: "SvelteKit",
-//   },
-//   {
-//     value: "nuxt.js",
-//     label: "Nuxt.js",
-//   },
-//   {
-//     value: "remix",
-//     label: "Remix",
-//   },
-//   {
-//     value: "astro",
-//     label: "Astro",
-//   },
-// ]
 export function UserRideHistory() {
   const {data,isLoading} = useUserInfoQuery()
   // console.log({data});
@@ -66,19 +27,43 @@ export function UserRideHistory() {
    const [currentPage, setCurrentPage] = useState(1)
   const {data:rideinfo,isLoading:isRideLoading} = useGetRideByIdQuery(`${role}Id=${id}&limit=10&page=${currentPage}`)
   RenderLoadning(isRideLoading)
-  // ------
-  //   const [open, setOpen] = React.useState(false)
-  // const [value, setValue] = React.useState("")
-  // -----
-  console.log({rideinfo});
-
  
 const totalPages = rideinfo?.meta?.totalPages || 1
+// ------
+ const [searchText, setSearchText] = useState("");
+  const [statusFilter, setStatusFilter] = useState("");
+const handleClear = () => {
+    setSearchText("");
+    setStatusFilter("");
+  };
 
+  const filteredData = rideinfo?.data?.filter((item:IRide) => {
+    // console.log(item);
+    
+    const matchSearch = item?.pickupLocation?.name?.toLowerCase().includes(searchText.toLowerCase());
+    // console.log(matchSearch);
+    
+    const matchStatus = statusFilter ? item?.status === statusFilter : true;
+// console.log(matchStatus);
 
-  
+    return matchSearch && matchStatus;
+  });
+  const filterOptions = rideinfo?.data?.map((item:IRide)=>{
+    return {label: item.status, value: item.status}
+  })
+  console.log(filterOptions);
   return (
     <div className="my-5">
+       <TableFilter
+        searchPlaceholder="Search by PickupLocation..."
+        searchValue={searchText}
+        onSearchChange={setSearchText}
+        filterLabel="Status"
+        filterOptions={filterOptions}
+        selectedFilter={statusFilter}
+        onFilterChange={setStatusFilter}
+        onClear={handleClear}
+      />
       <Table>
       {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
       <TableHeader>
@@ -91,7 +76,7 @@ const totalPages = rideinfo?.meta?.totalPages || 1
         </TableRow>
       </TableHeader>
       <TableBody>
-        {rideinfo?.data?.map((ride:IRide) => (
+        {filteredData?.map((ride:IRide) => (
           <TableRow className="text-start" key={ride._id}>
             <TableCell className="font-medium ">{ride?.timestamps?.requestedAt
     ? new Date(ride.timestamps.requestedAt).toLocaleString()
@@ -113,50 +98,7 @@ const totalPages = rideinfo?.meta?.totalPages || 1
     {/* pagination */}
     <PaginationBar totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage}></PaginationBar>
 
-    {/* search */}
-     {/* <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          role="combobox"
-          aria-expanded={open}
-          className="w-[300px] justify-between"
-        >
-          {value
-            ? frameworks.find((framework) => framework.value === value)?.label
-            : "search ride by destinationLocation"}
-          <ChevronsUpDown className="opacity-50" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-2500px] p-0">
-        <Command>
-          <CommandInput placeholder="Search destinationLocation..." className="h-9" />
-          <CommandList>
-            <CommandEmpty>No destinationLocation found.</CommandEmpty>
-            <CommandGroup>
-              {frameworks.map((framework) => (
-                <CommandItem
-                  key={framework.value}
-                  value={framework.value}
-                  onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue)
-                    setOpen(false)
-                  }}
-                >
-                  {framework.label}
-                  <Check
-                    className={cn(
-                      "ml-auto",
-                      value === framework.value ? "opacity-100" : "opacity-0"
-                    )}
-                  />
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          </CommandList>
-        </Command>
-      </PopoverContent>
-    </Popover> */}
+   
     </div>
     
   )
