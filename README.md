@@ -43,7 +43,6 @@ It supports:
 
 ### Rider Dashboard
 
-- Request and cancel rides
 - View ride history
 - Profile management
 
