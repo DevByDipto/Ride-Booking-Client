@@ -1,73 +1,80 @@
-# React + TypeScript + Vite
+# Ride Booking Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern **Ride Booking System** frontend built with **React, TailwindCSS, ShadCn, and Redux Toolkit**, featuring role-based dashboards for **Admin, Rider, and Driver**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Table of Contents
 
-## React Compiler
+- [Project Overview](#project-overview)
+- [Features](#features)
+- [Folder Structure](#folder-structure)
+- [Technology Stack](#technology-stack)
+- [Setup & Installation](#setup--installation)
+- [Scripts](#scripts)
+- [Contributing](#contributing)
+- [License](#license)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## Project Overview
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+This project is the **frontend part** of a ride booking platform.  
+It supports:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Role-based dashboards (**Admin, Rider, Driver**)
+- Ride management, ride history, and ride details
+- Driver assignment & availability
+- Customer feedback and testimonials
+- Call-to-action prompts and service highlights
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Features
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Public Pages
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **Home** – Hero Banner, How It Works, Service Highlights, Testimonials, Call-to-Action
+- **About Us** – Company background, mission, and team profiles
+- **Features** – Detailed breakdown of Rider, Driver, and Admin capabilities
+- **Contact** – Validated form for inquiries (simulated submission)
+- **FAQ** – Searchable list of common questions
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Admin Dashboard
+
+- Manage all users, drivers, and rides
+- Approve/Suspend drivers
+- Ride history & ride details
+- Profile management
+
+### Rider Dashboard
+
+- Request and cancel rides
+- View ride history
+- Profile management
+
+### Driver Dashboard
+
+- Accept/reject rides
+- Update ride status
+- Set availability status (Online/Offline)
+- Ride history
+
+---
+
+## Folder Structure
+
+```text
+src/
+├── components/
+│   ├── layouts/        # CommonLayout, DashBoardLayout
+│   ├── shared/         # reusable UI components
+│   └── modules/        # HeroBanner, HowItWorksOverview, ServiceHighlights, etc.
+├── page/
+│   ├── admin/          # Admin dashboard pages
+│   ├── rider/          # Rider dashboard pages
+│   ├── driver/         # Driver dashboard pages
+│   └── ride/           # Ride related pages
+├── redux/              # Redux slices & API endpoints
+├── utils/              # Helper functions, route generators
+└── App.tsx
