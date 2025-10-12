@@ -78,6 +78,7 @@ Follow the steps below to set up and run the project locally.
 
 ---
 ```
+---
 ### Setup instructions
 #### 1️⃣ Clone the Repository
 
