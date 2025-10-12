@@ -1,59 +1,69 @@
 import {
   Table,
   TableBody,
-  TableCaption,
+
   TableCell,
-  TableFooter,
+
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
 import { useUserInfoQuery } from "@/redux/features/auth/auth.api"
 import { useGetRidesByRoleQuery } from "@/redux/features/ride/ride.api"
-import RenderLoadning from "./RenderLoadning"
+
 import type { IRide } from "@/types/ride.type"
-import React from "react"
+
 import { useState } from "react"
 import PaginationBar from "./PaginationBar"
 import TableFilter from "./TableFilter"
-import { Button } from "../ui/button"
+
 import { Link } from "react-router"
+import Loading from "./Loading"
 
 export function UserRideHistory() {
   const {data,isLoading} = useUserInfoQuery()
-  // console.log({data});
+  // //console.log({data});
   
   const role  = data?.data?.role
   const id = role === "rider" ? data?.data?.rider._id : role === "driver" ? data?.data?.driver._id: ""
-  RenderLoadning(isLoading)
+
+  // RenderLoadning(isLoading)
    const [currentPage, setCurrentPage] = useState(1)
   const {data:rideinfo,isLoading:isRideLoading} = useGetRidesByRoleQuery(`${role}Id=${id}&limit=10&page=${currentPage}`)
-  RenderLoadning(isRideLoading)
+
+  // RenderLoadning(isRideLoading)
  
 const totalPages = rideinfo?.meta?.totalPages || 1
-// ------
+// ------ 
  const [searchText, setSearchText] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
 const handleClear = () => {
     setSearchText("");
     setStatusFilter("");
   };
-
+  if(isLoading)return <Loading/>
+    if(isRideLoading)return <Loading/>
   const filteredData = rideinfo?.data?.filter((item:IRide) => {
-    // console.log(item);
+    // //console.log(item);
     
     const matchSearch = item?.pickupLocation?.name?.toLowerCase().includes(searchText.toLowerCase());
-    // console.log(matchSearch);
+    // //console.log(matchSearch);
     
     const matchStatus = statusFilter ? item?.status === statusFilter : true;
-// console.log(matchStatus);
+// //console.log(matchStatus);
 
     return matchSearch && matchStatus;
   });
-  const filterOptions = rideinfo?.data?.map((item:IRide)=>{
-    return {label: item.status, value: item.status}
-  })
-  console.log(filterOptions);
+   const filterOptions = [
+    { label: "requested", value: "requested" },
+  { label: "accepted", value: "accepted" },
+  { label: "picked-up", value: "picked-up" },
+  { label: "intransited", value: "intransited" },
+  { label: "completed", value: "completed" },
+  { label: "cancelled", value: "cancelled" },
+  { label: "noResponse", value: "noResponse" }
+  ]
+  //console.log(filterOptions);
   return (
     <div className="my-5">
        <TableFilter
@@ -88,7 +98,7 @@ const handleClear = () => {
     <TableCell className="font-medium">{ride.fare}$</TableCell>
     <TableCell className="font-medium">{ride.destinationLocation.name}</TableCell>
             <TableCell>{ride.status}</TableCell>
-            <TableCell><Link to={`/dashboard/${role}/ride-details/${ride._id}`}>Details</Link></TableCell>
+            <TableCell><Link to={`/dashboard/ride-details/${ride._id}`}>Details</Link></TableCell>
           </TableRow>
         ))}
       </TableBody>

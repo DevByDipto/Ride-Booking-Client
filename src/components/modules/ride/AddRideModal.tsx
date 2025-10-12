@@ -10,11 +10,11 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+
 import {
   Form,
   FormControl,
-  FormDescription,
+  
   FormField,
   FormItem,
   FormLabel,
@@ -25,7 +25,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
 import type { IRide } from "@/types/ride.type";
-import RenderLoadning from "@/components/shared/RenderLoadning";
+
 import { useCreateRideMutation } from "@/redux/features/ride/ride.api";
 import ShowErrorToast from "@/components/shared/ShowErrorToast";
 import type { IError } from "@/types";
@@ -80,13 +80,13 @@ const AddRideModal = () => {
             toast.success("your ride is booked");
             setDialogOpen(false);
           }
-          console.log(res);
+          //console.log(res);
         } catch (error) {
-          console.log(error);
+          
     
           ShowErrorToast(error as IError<null>);
         }
-        console.log(rideData);
+        //console.log(rideData);
       };
 
 

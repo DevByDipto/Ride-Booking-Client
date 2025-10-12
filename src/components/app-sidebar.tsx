@@ -1,7 +1,5 @@
 import * as React from "react"
 
-import { SearchForm } from "@/components/search-form"
-import { VersionSwitcher } from "@/components/version-switcher"
 import {
   Sidebar,
   SidebarContent,
@@ -18,20 +16,21 @@ import getSidebarByRole from "@/utils/getSidebarByRole"
 import { useUserInfoQuery } from "@/redux/features/auth/auth.api"
 import { Link } from "react-router"
 import Logo from "./ui/logo"
+import Loading from "./shared/Loading"
 
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
-  const {isLoading,data:userRole} = useUserInfoQuery()
+  const {isLoading,data:userInfo} = useUserInfoQuery()
   if (isLoading) {
-    return <h1>loading...........</h1>
+    return <Loading/>
   }
   
 // This is sample data.
 const data = {
   versions: ["1.0.1", "1.1.0-alpha", "2.0.0-beta1"],
   // navMain: getSidebarByRole(userRole?.data?.role)
-  navMain: getSidebarByRole('admin')
+  navMain: getSidebarByRole(userInfo?.data?.role)
 }
 
   return (
@@ -49,13 +48,13 @@ const data = {
       </SidebarHeader>
       <SidebarContent>
         {/* We create a SidebarGroup for each parent. */}
-        {data.navMain.map((item) => (
-          <SidebarGroup key={item.title}>
+        {data.navMain.map((item,index) => (
+          <SidebarGroup key={index}>
             <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                {item.items.map((item) => (
-                  <SidebarMenuItem key={item.title}>
+                {item.items.map((item,index) => (
+                  <SidebarMenuItem key={index}>
                     <SidebarMenuButton asChild >
                       <Link to={item.url}>{item.title}</Link>
                     </SidebarMenuButton>

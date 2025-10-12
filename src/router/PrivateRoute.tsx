@@ -1,7 +1,7 @@
 import Loading from "@/components/shared/Loading";
 import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
 import type { TRole } from "@/types";
-import React, { type ReactNode } from "react";
+import  { type ReactNode } from "react";
 import { Navigate, useLocation } from "react-router";
 type PrivateRouteProps = {
   role?: TRole;
@@ -11,8 +11,8 @@ type PrivateRouteProps = {
 const PrivateRoute = ({ role, children }: PrivateRouteProps) => {
   const { data, isLoading } = useUserInfoQuery();
   const location = useLocation()
-  // console.log(location);
-  // console.log(data);
+  // //console.log(location);
+  // //console.log(data);
   
   if (isLoading) {
     return <Loading></Loading>;

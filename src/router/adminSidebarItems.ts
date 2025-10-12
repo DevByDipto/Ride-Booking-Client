@@ -1,9 +1,11 @@
 
-import AdminProfile from "@/page/admin/AdminProfile";
-import AllDriver from "@/page/admin/AllDriver";
-import { AllRide } from "@/page/admin/Allride";
-import AllRider from "@/page/admin/AllRider";
-import RideDetails from "@/page/ride/RideDetails";
+import  { lazy } from "react";
+
+const AdminProfile = lazy(() => import("@/page/admin/AdminProfile"));
+const AllDriver = lazy(() => import("@/page/admin/AllDriver"));
+const AllRider = lazy(() => import("@/page/admin/AllRider"));
+const AllRide = lazy(() => import("@/page/admin/Allride"));
+
 
 
 
@@ -32,10 +34,10 @@ export const adminSidebarItems= [
           url: "/dashboard/admin/all-ride", 
           Component: AllRide
         },
-        {
-          url: "/dashboard/admin/ride-details/:id", 
-          Component: RideDetails
-        },
+        // {
+        //   url: "/dashboard/admin/ride-details/:id", 
+        //   Component: RideDetails
+        // },
          
        
       ],

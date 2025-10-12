@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { ILogin, IRegister, IResponse } from "@/types";
+import type { ILogin, IResponse } from "@/types";
 import { baseApi } from "../../baseApi";
 import type { IUser } from "@/types/user.type";
 

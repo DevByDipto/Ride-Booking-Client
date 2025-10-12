@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -6,7 +6,6 @@ import { Button } from "../components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -15,7 +14,7 @@ import {
 import { Input } from "../components/ui/input";
 import { useRegisterMutation } from "../redux/features/auth/auth.api";
 import LoadingButton from "../components/shared/LoadingButton";
-import { Link, useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { toast } from "sonner";
 import type { IError, TRole } from "@/types";
 import ShowErrorToast from "@/components/shared/ShowErrorToast";
@@ -29,18 +28,17 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import type { Tvehicle } from "@/types/driver.type";
-import { role } from "@/constants/role";
 import type { IUser, TVehicle } from "@/types/user.type";
 type userRole = "rider" | "driver";
 const Register = () => {
   const [selectedVehicle, setSelectedVehicle] = useState("bike");
   const [selectRole, setSelectRole] = useState("rider");
-  const [register, { isLoading, isError, isSuccess }] = useRegisterMutation();
+  const [register, { isLoading }] = useRegisterMutation();
   const navigate = useNavigate();
   const location = useLocation();
   const vehicles: Tvehicle[] = ["car", "bike", "zip"];
   const roles: userRole[] = ["rider", "driver"];
-  // console.log(location);
+  // //console.log(location);
   const registerSchema = z.object({
     name: z.string().min(2).max(50),
     email: z.email(),
@@ -74,14 +72,14 @@ const Register = () => {
     };
     try {
       const res = await register(data).unwrap();
-      console.log(res);
+      //console.log(res);
       
       if (res.success) {
         toast.success("congatulation! register successfull");
         navigate("/login", { state: location.state });
       }
     } catch (error) {
-      console.log(error);
+      //console.log(error);
       
       ShowErrorToast(error as IError<null>);
     }

@@ -1,13 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "../components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -17,27 +14,19 @@ import { Input } from "../components/ui/input";
 import { useLoginMutation } from "../redux/features/auth/auth.api";
 import LoadingButton from "../components/shared/LoadingButton";
 import { toast } from "sonner";
-import { Link, Navigate, useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import type { IError } from "@/types";
 import ShowErrorToast from "@/components/shared/ShowErrorToast";
 import { role } from "@/constants/role";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+
 // type userRole = "rider" | "driver";
 const Login = () => {
   // const [selectRole, setSelectRole] = useState("rider");
   // const roles: userRole[] = ["rider", "driver"];
-  const [login, { isLoading, isError, isSuccess }] = useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation();
   const navigate = useNavigate();
   const location = useLocation();
-  // console.log(location);
+  // //console.log(location);
   const registerSchema = z.object({
     email: z.email(),
     password: z.string().min(6).max(50),
@@ -56,13 +45,13 @@ const Login = () => {
   const onSubmit = async (values: z.infer<typeof registerSchema>) => {
     try {
       const res = await login(values).unwrap();
-      console.log(res);
+      //console.log(res);
       const userData = res?.data as any; // aro best way kii ?(support)
 
       if (userData?.role === role.RIDER) {
         
         if (userData?.rider?.isBlocked) {
-          console.log("work");
+          //console.log("work");
           return navigate('/blockedPage',{state:'blocked'})
           // return <Navigate to="/blockedPage"/>
         }
@@ -77,7 +66,7 @@ const Login = () => {
         navigate(location.state || "/");
       }
     } catch (error) {
-      console.log({ error });
+      //console.log({ error });
 
       ShowErrorToast(error as IError<null>);
     }

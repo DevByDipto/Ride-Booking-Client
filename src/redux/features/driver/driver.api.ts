@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { IResponse } from "@/types";
 import { baseApi } from "../../baseApi";
-import type { IRide } from "@/types/ride.type";
 import type { TDriverUpdate, TUpdateDriverApprovalStatus } from "@/types/driver.type";
 
 export const driverApi = baseApi.injectEndpoints({

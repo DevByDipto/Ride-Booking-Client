@@ -1,7 +1,6 @@
-import RenderLoadning from "@/components/shared/RenderLoadning";
 import { Button } from "@/components/ui/button";
 import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
-import React, { useState } from "react";
+import  { useState } from "react";
 import {
   Dialog,
   DialogClose,
@@ -13,31 +12,32 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { number, string, z } from "zod";
+import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import LoadingButton from "@/components/shared/LoadingButton";
 import { useUpdateRiderMutation } from "@/redux/features/rider/rider.api";
 import { toast } from "sonner";
+import Loading from "@/components/shared/Loading";
+import type { IError } from "@/types";
+import ShowErrorToast from "@/components/shared/ShowErrorToast";
 
 const RiderProfile = () => {
   const { data, isLoading, refetch } = useUserInfoQuery();
-  RenderLoadning(isLoading);
   const riderInfo = data?.data?.rider;
-  // console.log(riderInfo);
+  // //console.log(riderInfo);
   const [ride] = useUpdateRiderMutation();
+  // RenderLoadning(isLoading);
   const [dialogOpen, setDialogOpen] = useState(false);
-
+  
   const riderSchema = z.object({
     name: z.string(),
     phoneNumber: z
@@ -58,25 +58,30 @@ const RiderProfile = () => {
       password: '',
     },
   });
+  if(isLoading)return <Loading/>
 
   const onSubmit = async (value: z.infer<typeof riderSchema>) => {
-    console.log({ value });
+    //console.log({ value });
 
     const rideData = {
-      id: data?.data?.rider?._id as string,
+      _id: data?.data?.rider?._id as string,
        name:value.name || riderInfo.name,
       phoneNumber: value.phoneNumber || riderInfo.phoneNumber,
       password:value.password || data?.data?.password,
     };
-    console.log(rideData);
-
+    //console.log(rideData);
+try {
     const res = await ride(rideData).unwrap();
     if (res.data) {
       toast.success("your profile is update successfully");
       setDialogOpen(false);
       await refetch();
     }
-    console.log(res);
+    //console.log(res);
+} catch (error) {
+ ShowErrorToast(error as IError<null>);
+}
+  
   };
 
   return (

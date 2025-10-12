@@ -16,7 +16,7 @@ const BlockedPage: React.FC<BlockedPageProps> = ({
   contactPhone = "+880123456789",
 }) => {
     const location = useLocation();
-    console.log(location);
+    //console.log(location);
     
   return (
     <div className="flex items-center justify-center min-h-screen px-4 bg-[var(--background)] text-[var(--foreground)]">

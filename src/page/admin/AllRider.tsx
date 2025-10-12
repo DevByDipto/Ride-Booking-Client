@@ -2,13 +2,13 @@ import {
   useGetAllRiderQuery,
   useUpdateRiderMutation,
 } from "@/redux/features/rider/rider.api";
-import React, { useState } from "react";
+import  { useState } from "react";
 import {
   Table,
   TableBody,
-  TableCaption,
+
   TableCell,
-  TableFooter,
+  
   TableHead,
   TableHeader,
   TableRow,
@@ -18,6 +18,8 @@ import type { IRider } from "@/types/rider.type";
 import { toast } from "sonner";
 import PaginationBar from "@/components/shared/PaginationBar";
 import TableFilter from "@/components/shared/TableFilter";
+import ShowErrorToast from "@/components/shared/ShowErrorToast";
+import type { IError } from "@/types";
 
 const AllRider = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,7 +28,7 @@ const AllRider = () => {
   const [updateRider] = useUpdateRiderMutation();
   // const totalPages = riderInfo?.meta?.totalPages|| 1
   const totalPages = riderInfo?.meta?.totalPages ||1;
-  console.log(data);
+  //console.log(data);
 
   const handleriderBlock = async (value: boolean, _id: string) => {
     const riderUpdateData = {
@@ -34,15 +36,17 @@ const AllRider = () => {
     };
     try {
       const res = await updateRider({ _id, ...riderUpdateData }).unwrap();
-      console.log({ res });
+      //console.log({ res });
       if (res.data) {
-        toast.success("Now you are assigned to this ride");
+        toast.success("update successfull");
         refetch();
       }
     } catch (error) {
-      console.log(error);
+      //console.log(error);
+      
+      ShowErrorToast(error as IError<null>);
     }
-    console.log(value, _id);
+    //console.log(value, _id);
   };
 
   const [searchText, setSearchText] = useState("");
@@ -53,20 +57,20 @@ const AllRider = () => {
     };
   
     const filteredData = riderInfo?.filter((item:IRider) => {
-      // console.log(item);
+      // //console.log(item);
       
       const matchSearch = item?.name?.toLowerCase().includes(searchText.toLowerCase());
-      // console.log(matchSearch);
+      // //console.log(matchSearch);
       
       // const matchStatus = statusFilter ? item?.status === statusFilter : true;
-  // console.log(matchStatus);
+  // //console.log(matchStatus);
   
       return matchSearch;
     });
     // const filterOptions = riderInfo?.map((item:IRide)=>{
     //   return {label: item.status, value: item.status}
     // })
-    // console.log(filterOptions);
+    // //console.log(filterOptions);
   return (
     <div>
         <TableFilter

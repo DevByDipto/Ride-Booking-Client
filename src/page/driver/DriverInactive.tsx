@@ -9,78 +9,78 @@ const DriverInactive = (WrappedComponent: React.ComponentType) => {
     const { data,isLoading } = useUserInfoQuery();
     const navigate = useNavigate();
 if(isLoading)return <Loading/>
-    // console.log(data?.data?.driver);
-//  if (data?.data?.driver?.isApproved === "pending") {
-//       // ⚠️ ভুল ছিল — WrappedComponent শুধু return করলে কিছু render হয় না
-//       // তাই JSX আকারে return করতে হবে 👇
-//       return (
-//         <div
-//           className="max-w-md mx-auto mt-16 p-8 rounded-2xl shadow-lg text-center border transition-colors duration-300"
-//           style={{
-//             backgroundColor: "var(--card)",
-//             color: "var(--card-foreground)",
-//             borderColor: "var(--border)",
-//           }}
-//         >
-//           <div className="flex flex-col items-center space-y-5">
-//             {/* ⚠️ Warning icon */}
-//             <div
-//               className="w-14 h-14 flex items-center justify-center rounded-full border text-2xl"
-//               style={{
-//                 backgroundColor: "var(--accent)",
-//                 color: "var(--accent-foreground)",
-//                 borderColor: "var(--border)",
-//               }}
-//             >
-//               ⏳
-//             </div>
+    // //console.log(data?.data?.driver);
+ if (data?.data?.driver?.isApproved === "pending") {
+      // ⚠️ ভুল ছিল — WrappedComponent শুধু return করলে কিছু render হয় না
+      // তাই JSX আকারে return করতে হবে 👇
+      return (
+        <div
+          className="max-w-md mx-auto mt-16 p-8 rounded-2xl shadow-lg text-center border transition-colors duration-300"
+          style={{
+            backgroundColor: "var(--card)",
+            color: "var(--card-foreground)",
+            borderColor: "var(--border)",
+          }}
+        >
+          <div className="flex flex-col items-center space-y-5">
+            {/* ⚠️ Warning icon */}
+            <div
+              className="w-14 h-14 flex items-center justify-center rounded-full border text-2xl"
+              style={{
+                backgroundColor: "var(--accent)",
+                color: "var(--accent-foreground)",
+                borderColor: "var(--border)",
+              }}
+            >
+              ⏳
+            </div>
 
-//             {/* 🔤 Heading */}
-//             <h2
-//               className="text-2xl font-semibold tracking-tight"
-//               style={{ color: "var(--foreground)" }}
-//             >
-//               Your profile is not approved yet
-//             </h2>
+            {/* 🔤 Heading */}
+            <h2
+              className="text-2xl font-semibold tracking-tight"
+              style={{ color: "var(--foreground)" }}
+            >
+              Your profile is not approved yet
+            </h2>
 
-//             {/* 📝 Description */}
-//             <p
-//               className="text-sm leading-relaxed max-w-sm"
-//               style={{ color: "var(--muted-foreground)" }}
-//             >
-//               Your profile is currently{" "}
-//               <span className="font-medium text-yellow-600 dark:text-yellow-400">
-//                 pending
-//               </span>{" "}
-//               approval from the admin. Please wait a little while to enjoy all
-//               application features, or contact the admin via email at{" "}
-//               <a
-//                 href="mailto:admin@gmail.com"
-//                 className="underline font-medium"
-//                 style={{ color: "var(--primary)" }}
-//               >
-//                 admin@gmail.com
-//               </a>
-//               .
-//             </p>
+            {/* 📝 Description */}
+            <p
+              className="text-sm leading-relaxed max-w-sm"
+              style={{ color: "var(--muted-foreground)" }}
+            >
+              Your profile is currently{" "}
+              <span className="font-medium text-yellow-600 dark:text-yellow-400">
+                pending
+              </span>{" "}
+              approval from the admin. Please wait a little while to enjoy all
+              application features, or contact the admin via email at{" "}
+              <a
+                href="mailto:admin@gmail.com"
+                className="underline font-medium"
+                style={{ color: "var(--primary)" }}
+              >
+                admin@gmail.com
+              </a>
+              .
+            </p>
 
-//             {/* 🔘 Button */}
-//             <Button
-//               variant="outline"
-//               className="mt-3 px-6 font-medium"
-//               style={{
-//                 backgroundColor: "var(--primary)",
-//                 color: "var(--primary-foreground)",
-//                 borderColor: "var(--border)",
-//               }}
-//               onClick={() => navigate("/dashboard/driver/profile")}
-//             >
-//               View Profile
-//             </Button>
-//           </div>
-//         </div>
-//       );
-//     }
+            {/* 🔘 Button */}
+            <Button
+              variant="outline"
+              className="mt-3 px-6 font-medium"
+              style={{
+                backgroundColor: "var(--primary)",
+                color: "var(--primary-foreground)",
+                borderColor: "var(--border)",
+              }}
+              onClick={() => navigate("/dashboard/driver/profile")}
+            >
+              View Profile
+            </Button>
+          </div>
+        </div>
+      );
+    }
 
     if (data?.data?.driver?.availability) {
       // ⚠️ ভুল ছিল — WrappedComponent শুধু return করলে কিছু render হয় না

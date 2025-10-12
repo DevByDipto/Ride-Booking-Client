@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import  { useState } from "react";
 import { ChevronDown } from "lucide-react";
 
 const faqData = [
@@ -26,7 +27,7 @@ const faqData = [
 
 const FAQSection = () => {
   const [search, setSearch] = useState("");
-  const [openIndex, setOpenIndex] = useState(null);
+  const [openIndex, setOpenIndex] = useState<any>(null);
 
   const filteredFaqs = faqData.filter(faq =>
     faq.question.toLowerCase().includes(search.toLowerCase())

@@ -1,10 +1,7 @@
 import {
-  BoltIcon,
-  BookOpenIcon,
-  Layers2Icon,
+ 
   LogOutIcon,
-  PinIcon,
-  UserPenIcon,
+  
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
@@ -12,16 +9,16 @@ import { Button } from "./button";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
+ 
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
+ 
   DropdownMenuTrigger,
 } from "./dropdown-menu";
 import { useLogoutMutation } from "@/redux/features/auth/auth.api";
 import { useDispatch } from "react-redux";
 import { baseApi } from "@/redux/baseApi";
 import ShowErrorToast from "../shared/ShowErrorToast";
+import type { IError } from "@/types";
 // import type { IError } from "@/types";
 
 
@@ -37,11 +34,11 @@ export default function UserMenu({name}:{name:string}) {
       if (res) {
         dispatch(baseApi.util.resetApiState());
       }
-      // console.log(res);
+      // //console.log(res);
     } catch (error) {
-      console.log(error);
       
-      // ShowErrorToast(error as IError<null>);
+      
+      ShowErrorToast(error as IError<null>);
     }
   };
 

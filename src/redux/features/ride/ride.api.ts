@@ -19,6 +19,7 @@ getRidesByRole: builder.query<IResponse<any>,string>({
         url: `/ride?${query}`,
         method: "GET",
       }),
+      providesTags: ['Ride'],
     }),
 getRidesById: builder.query<IResponse<any>,string>({ 
       query: (id) => ({
@@ -31,14 +32,14 @@ getRides: builder.query<IResponse<any>,void>({
         url: `/ride?status=${rideStatus.Requested}`,
         method: "GET",
       }),
-      providesTags:["Ride"]
+      // providesTags:["Ride"]
     }),
 getAllRides: builder.query<IResponse<any>,void>({ 
       query: () => ({
         url: `/ride`,
         method: "GET",
       }),
-      providesTags:["Ride"]
+      // providesTags:["Ride"]
     }),
     updateRidesStatus: builder.mutation<IResponse<any>,{ id: string } & IRideStatusUpdate>({ 
       query: ({id,...data}) => ({

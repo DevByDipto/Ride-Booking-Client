@@ -2,7 +2,7 @@ import { Home,
   Info,
   ListChecks,
   Mail,
-  HelpCircle, InboxIcon, SparklesIcon, ZapIcon } from "lucide-react";
+  HelpCircle, ZapIcon } from "lucide-react";
 
 import Logo from "../ui/logo";
 import UserMenu from "../ui/user-menu";
@@ -10,7 +10,7 @@ import { Button } from "../ui/button";
 import {
   NavigationMenu,
   NavigationMenuItem,
-  NavigationMenuLink,
+  // NavigationMenuLink,
   NavigationMenuList,
 } from "../ui/navigation-menu";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
@@ -26,15 +26,15 @@ import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
 // }
 
 export default function Navbar() {
-  const { data: user, isLoading,error } = useUserInfoQuery();
-  console.log(error);
+  const { data: user, isLoading } = useUserInfoQuery();
+  //console.log(error);
   
-  console.log("user", user);
+  //console.log("user", user);
   if (isLoading) {
     return <Loading />;
   }
   const navigationLinks = [
-      { href: "/", label: "Home", icon: Home, active: true, role: "public" },
+      { href: "/", label: "Home", icon: Home, role: "public" },
   { href: "/about-us", label: "About", icon: Info, role: "public" },
   { href: "/features", label: "Features", icon: ListChecks, role: "public" },
   { href: "/contact", label: "Contact", icon: Mail, role: "public" },
@@ -107,40 +107,68 @@ export default function Navbar() {
                     const Icon = link.icon;
                     if (link.role === "public") {
                       return (
+                        // <NavigationMenuItem key={index} className="w-full">
+                        //   <NavigationMenuLink
+                           
+                        //     href={link.href}
+                        //     className="flex-row items-center gap-2 py-1.5"
+                            
+                        //   >
+                        //     <Link  to={link.href}></Link>
+                        //     <Icon
+                        //       size={16}
+                        //       className="text-muted-foreground/80"
+                        //       aria-hidden="true"
+                        //     />
+                        //     <span>{link.label}</span>
+                        //   </NavigationMenuLink>
+                        // </NavigationMenuItem>
                         <NavigationMenuItem key={index} className="w-full">
-                          <NavigationMenuLink
-                            href={link.href}
-                            className="flex-row items-center gap-2 py-1.5"
-                            active={link.active}
-                          >
-                            <Link to={link.href}></Link>
-                            <Icon
-                              size={16}
-                              className="text-muted-foreground/80"
-                              aria-hidden="true"
-                            />
-                            <span>{link.label}</span>
-                          </NavigationMenuLink>
-                        </NavigationMenuItem>
+  <Link
+    to={link.href}
+    className="flex flex-row items-center gap-2 py-1.5 flex"
+  >
+    <Icon
+      size={16}
+      className="text-muted-foreground/80"
+      aria-hidden="true"
+    />
+    <span>{link.label}</span>
+  </Link>
+</NavigationMenuItem>
                       );
                     }
                     if (link.role === user?.data.role) {
                       return (
+                        // <NavigationMenuItem key={index} className="w-full">
+                        //   <NavigationMenuLink
+                           
+                        //     href={link.href}
+                        //     className="flex-row items-center gap-2 py-1.5"
+                            
+                        //   >
+                        //     <Link to={link.href}></Link>
+                        //     <Icon
+                        //       size={16}
+                        //       className="text-muted-foreground/80"
+                        //       aria-hidden="true"
+                        //     />
+                        //     <span>{link.label}</span>
+                        //   </NavigationMenuLink>
+                        // </NavigationMenuItem>
                         <NavigationMenuItem key={index} className="w-full">
-                          <NavigationMenuLink
-                            href={link.href}
-                            className="flex-row items-center gap-2 py-1.5"
-                            active={link.active}
-                          >
-                            <Link to={link.href}></Link>
-                            <Icon
-                              size={16}
-                              className="text-muted-foreground/80"
-                              aria-hidden="true"
-                            />
-                            <span>{link.label}</span>
-                          </NavigationMenuLink>
-                        </NavigationMenuItem>
+  <Link
+    to={link.href}
+    className="flex flex-row items-center gap-2 py-1.5 flex"
+  >
+    <Icon
+      size={16}
+      className="text-muted-foreground/80"
+      aria-hidden="true"
+    />
+    <span>{link.label}</span>
+  </Link>
+</NavigationMenuItem>
                       );
                     }
                   })}
@@ -150,44 +178,68 @@ export default function Navbar() {
           </Popover>
 
           <NavigationMenu className="max-md:hidden">
-            <NavigationMenuList className="gap-2">
+            <NavigationMenuList className="gap-5">
               {navigationLinks.map((link, index) => {
                 const Icon = link.icon;
                 if (link.role === "public") {
                 return (
-                  <NavigationMenuItem key={index}>
-                    <NavigationMenuLink
-                      active={link.active} 
-                      href={link.href}
-                      className="text-foreground hover:text-primary flex-row items-center gap-2 py-1.5 font-medium"
-                    >
-                      <Link to={link.href}></Link>
-                      <Icon
-                        size={16}
-                        className="text-muted-foreground/80"
+                  // <NavigationMenuItem key={index}>
+                  //   <NavigationMenuLink
+                      
+                  //     href={link.href}
+                  //     className="text-foreground hover:text-primary flex-row items-center gap-2 py-1.5 font-medium"
+                  //   >
+                  //     <Link to={link.href}></Link>
+                  //     <Icon
+                  //       size={16}
+                  //       className="text-muted-foreground/80"
+                  //       aria-hidden="true"
+                  //     />
+                  //     <span>{link.label}</span>
+                  //   </NavigationMenuLink>
+                  // </NavigationMenuItem>
+                  <NavigationMenuItem key={index} className="w-full">
+  <Link
+    to={link.href}
+     className="text-foreground hover:text-primary flex-row items-center gap-2 py-1.5 font-medium flex"
+  >
+    <Icon
+      size={16}
+       className="text-muted-foreground/80"
                         aria-hidden="true"
-                      />
-                      <span>{link.label}</span>
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
+    />
+    <span>{link.label}</span>
+  </Link>
+</NavigationMenuItem>
                 );}
                 if (link.role === user?.data.role) {
                    return (
-                  <NavigationMenuItem key={index}>
-                    <NavigationMenuLink
-                      active={link.active}
-                      href={link.href}
-                      className="text-foreground hover:text-primary flex-row items-center gap-2 py-1.5 font-medium"
-                    >
-                      <Link to={link.href}></Link>
-                      <Icon
-                        size={16}
-                        className="text-muted-foreground/80"
+                  // <NavigationMenuItem key={index}>
+                  //   <NavigationMenuLink
+                       
+                  //     href={link.href}
+                  //     className="text-foreground hover:text-primary flex-row items-center gap-2 py-1.5 font-medium"
+                  //   >
+                  //     <Link to={link.href}></Link>
+                  //     <Icon
+                  //       size={16}
+                  //       className="text-muted-foreground/80"
+                  //       aria-hidden="true"
+                  //     />
+                  //     <span>{link.label}</span>
+                  //   </NavigationMenuLink>
+                  // </NavigationMenuItem>
+                   <Link
+    to={link.href}
+     className="text-foreground hover:text-primary flex-row items-center gap-2 py-1.5 font-medium flex"
+  >
+    <Icon
+      size={16}
+       className="text-muted-foreground/80"
                         aria-hidden="true"
-                      />
-                      <span>{link.label}</span>
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
+    />
+    <span>{link.label}</span>
+  </Link>
                 );}
               })}
             </NavigationMenuList>

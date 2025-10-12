@@ -1,5 +1,5 @@
 import type { IError } from '@/types';
-import React from 'react'
+
 import { toast } from 'sonner';
 
 const ShowErrorToast = (error:IError<null>) => {

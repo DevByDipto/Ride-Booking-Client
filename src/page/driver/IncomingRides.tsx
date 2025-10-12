@@ -1,11 +1,11 @@
 import {  useGetRidesQuery, useUpdateRidesStatusMutation } from "@/redux/features/ride/ride.api";
-import React from "react";
+
 import {
   Table,
   TableBody,
-  TableCaption,
+
   TableCell,
-  TableFooter,
+
   TableHead,
   TableHeader,
   TableRow,
@@ -14,9 +14,10 @@ import type { IRide, IRideStatusUpdate, TRideStatus } from "@/types/ride.type";
 import { Button } from "@/components/ui/button";
 import { role } from "@/constants/role";
 import { rideStatus } from "@/constants/ride";
-import type { TRole } from "@/types";
+import type { IError, TRole } from "@/types";
 import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
 import { toast } from "sonner";
+import ShowErrorToast from "@/components/shared/ShowErrorToast";
 
 const IncomingRides = () => {
   const { data,refetch } = useGetRidesQuery();
@@ -24,7 +25,7 @@ const IncomingRides = () => {
   const[updateRidesStatus] = useUpdateRidesStatusMutation()
   const driverID = driverData?.data.driver._id;
   const rideInfo = data?.data;
-  console.log({rideInfo});
+  //console.log({rideInfo});
 
   const handleAcceptRide =async (id:string) => {
     const rideUpdateData: IRideStatusUpdate = {
@@ -35,17 +36,17 @@ const IncomingRides = () => {
     };
     try {
       const res = await updateRidesStatus({id,...rideUpdateData}).unwrap()
-      console.log({res});
+      //console.log({res});
       if(res.data){
         toast.success("Now you are assigned to this ride")
         refetch()
       }
       
     } catch (error) {
-      console.log(error);
+     ShowErrorToast(error as IError<null>);
       
     }
-    console.log(rideUpdateData);
+    //console.log(rideUpdateData);
   };
 
   if(!rideInfo?.length){

@@ -1,13 +1,13 @@
 import { rideStatus } from '@/constants/ride'
 import { useUserInfoQuery } from '@/redux/features/auth/auth.api'
 import { useGetRidesByRoleQuery, useUpdateRidesStatusMutation } from '@/redux/features/ride/ride.api'
-import React from 'react'
+
 import {
   Table,
   TableBody,
-  TableCaption,
+ 
   TableCell,
-  TableFooter,
+ 
   TableHead,
   TableHeader,
   TableRow,
@@ -18,7 +18,8 @@ import { getNextRideStatus } from '@/utils/getNextRideStatus';
 import Loading from '@/components/shared/Loading';
 import { role } from '@/constants/role';
 import { toast } from 'sonner';
-import type { TRole } from '@/types';
+import type { IError, TRole } from '@/types';
+import ShowErrorToast from '@/components/shared/ShowErrorToast';
 
 const RideManagement = () => {
   const {data:driverInfo,isLoading} = useUserInfoQuery()
@@ -29,7 +30,7 @@ const RideManagement = () => {
      const[updateRidesStatus] = useUpdateRidesStatusMutation()
      if(isLoading)return <Loading/>
   
-console.log(rideInfo);
+//console.log(rideInfo);
 
   const handleRideStatusRide =async (id:string,status:string) => {
     const rideUpdateData: IRideStatusUpdate = {
@@ -38,21 +39,21 @@ console.log(rideInfo);
       status: status as TRideStatus,
       timestamps: { [`${status}At`]: new Date().toISOString() },
     };
-    console.log(rideUpdateData);
+    //console.log(rideUpdateData);
     
     try {
       const res = await updateRidesStatus({id,...rideUpdateData}).unwrap()
-      console.log({res});
+      //console.log({res});
       if(res.data){
-        toast.success("Now you are assigned to this ride")
+        toast.success("update successfull")
         refetch()
       }
       
     } catch (error) {
-      console.log(error);
+     ShowErrorToast(error as IError<null>);
       
     }
-    // console.log(id);
+    // //console.log(id);
   };
   if(!rideInfo?.length){
   return <h1>you have not assigned any ride</h1>
@@ -80,11 +81,11 @@ console.log(rideInfo);
                   : "N/A"}
               </TableCell>
               <TableCell className="font-medium">
-                {ride.pickupLocation.name}$
+                {ride.pickupLocation.name}
               </TableCell>
               <TableCell className="font-medium">{ride.fare}$</TableCell>
               <TableCell className="font-medium">
-                {ride.destinationLocation.name}$
+                {ride.destinationLocation.name}
               </TableCell>
               <TableCell>
                 <Button onClick={()=>handleRideStatusRide(ride._id as string,getNextRideStatus(ride?.status) as string)}>{getNextRideStatus(ride?.status)}</Button>

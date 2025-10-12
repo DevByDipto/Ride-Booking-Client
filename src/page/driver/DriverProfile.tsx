@@ -1,4 +1,3 @@
-import RenderLoadning from "@/components/shared/RenderLoadning";
 import { Button } from "@/components/ui/button";
 import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
 import React, { useState } from "react";
@@ -27,7 +26,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { VEHICLES } from "@/constants/driver";
 import {
@@ -40,12 +38,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import type {TDriverUpdate, Tvehicle } from "@/types/driver.type";
+import Loading from "@/components/shared/Loading";
 
 const DriverProfile = () => {
-  const [selectedVehicle, setSelectedVehicle] = useState("bike");
   const { data, isLoading, refetch } = useUserInfoQuery();
   const [dialogOpen, setDialogOpen] = useState(false);
-  RenderLoadning(isLoading);
+
+  // RenderLoadning(isLoading);
   
   const driverInfo = data?.data?.driver;
   const [updateDriver] = useUpdateDriverMutation();
@@ -86,12 +85,12 @@ const DriverProfile = () => {
     });
   }
 }, [driverInfo]);
-  
+    if(isLoading)return <Loading/>
 // if(isLoading)return <h1 className="text-red-500">loading</h1>
   const onSubmit = async (value: z.infer<typeof driverSchema>) => {
-    // console.log( driverInfo.availability);
+    // //console.log( driverInfo.availability);
     
-    // console.log(value.availability);
+    // //console.log(value.availability);
     
     const driverData :TDriverUpdate = {
       id: driverInfo?._id as string,
@@ -101,9 +100,9 @@ const DriverProfile = () => {
        availability: value.availability ?? driverInfo.availability,
       vehicleInfo: value.vehicleInfo || driverInfo.vehicleInfo,
     };
-    // console.log(driverData.availability);
-    // console.log("driverinfo");
+    // //console.log(driverData.availability);
     
+    //console.log(driverData);
 
     try {
       const res = await updateDriver(driverData).unwrap();

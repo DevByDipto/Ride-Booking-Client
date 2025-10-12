@@ -1,34 +1,32 @@
-import React, { useEffect, useState } from "react";
+import {  useState } from "react";
 import {
   Table,
   TableBody,
-  TableCaption,
+
   TableCell,
-  TableFooter,
+
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import type { IRider } from "@/types/rider.type";
 import { toast } from "sonner";
 import {
   useGetAllDriverQuery,
   useUpdateDriverApprovalMutation,
-  useUpdateDriverMutation,
 } from "@/redux/features/driver/driver.api";
 import type { IDriver, TIsApproved, TUpdateDriverApprovalStatus } from "@/types/driver.type";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import TableFilter from "@/components/shared/TableFilter";
 import PaginationBar from "@/components/shared/PaginationBar";
+import ShowErrorToast from "@/components/shared/ShowErrorToast";
+import type { IError } from "@/types";
 
 const AllDriver = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -37,7 +35,7 @@ const AllDriver = () => {
   const driverInfo = data?.data;
   const [updateDriver] = useUpdateDriverApprovalMutation();
   const totalPages = data?.meta?.totalPages || 2;
-    console.log(data);
+    //console.log(data);
   const isApproved = ["pending", "approved", "suspend"];
 
     const handleApproval = async (id:string,aprovalValue:string) => {
@@ -47,15 +45,15 @@ const AllDriver = () => {
       };
       try {
         const res = await updateDriver(driverUpdateData).unwrap();
-        console.log({ res });
+        //console.log({ res });
         if (res.data) {
           toast.success("approved status sucessfully changed");
           refetch();
         }
       } catch (error) {
-        console.log(error);
+        ShowErrorToast(error as IError<null>);
       }
-      // console.log(value, _id);
+      // //console.log(value, _id);
     };
 
 
@@ -68,20 +66,20 @@ const AllDriver = () => {
       };
     
       const filteredData = driverInfo?.filter((item:IDriver) => {
-        // console.log(item);
+        // //console.log(item);
         
         const matchSearch = item?.vehicleInfo?.toLowerCase().includes(searchText.toLowerCase());
-        // console.log(matchSearch);
+        // //console.log(matchSearch);
         
         // const matchStatus = statusFilter ? item?.availability === statusFilter : true;
-    // console.log(matchStatus);
+    // //console.log(matchStatus);
     
         return matchSearch ;
       });
       // const filterOptions = driverInfo?.map((item:IDriver)=>{
       //   return {label: item?.isApproved, value: item?.isApproved}
       // })
-      // console.log(filterOptions);
+      // //console.log(filterOptions);
   return (
     <div>
         <TableFilter

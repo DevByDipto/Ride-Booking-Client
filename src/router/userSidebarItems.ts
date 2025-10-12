@@ -1,8 +1,4 @@
 import Allride from "@/page/admin/Allride";
-import AllRider from "@/page/admin/AllRider";
-
-
-
 
 export const riderSidebarItems= [
     {

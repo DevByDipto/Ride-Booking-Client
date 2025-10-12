@@ -3,7 +3,7 @@ import { UserRideHistory } from "@/components/shared/UserRideHistory";
 
 
 
-export function RiderAllRideHistory() {
+ export default function RiderAllRideHistory() {
   return (
  <div>
   <div className="flex justify-between">

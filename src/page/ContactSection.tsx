@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import  { useState } from "react";
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -8,11 +9,11 @@ const ContactSection = () => {
   });
 
   const [success, setSuccess] = useState(false);
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<any>({});
 
   // Simple validation
   const validate = () => {
-    const newErrors = {};
+    const newErrors:any = {};
     if (!formData.name.trim()) newErrors.name = "Name is required";
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
@@ -23,12 +24,12 @@ const ContactSection = () => {
     return newErrors;
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e:any) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     setErrors({ ...errors, [e.target.name]: "" });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e:any) => {
     e.preventDefault();
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
@@ -36,7 +37,7 @@ const ContactSection = () => {
       return;
     }
     // Simulate submission
-    console.log("Form submitted:", formData);
+    //console.log("Form submitted:", formData);
     setSuccess(true);
     setFormData({ name: "", email: "", message: "" });
   };

@@ -1,5 +1,5 @@
+import Loading from "@/components/shared/Loading"
 import PaginationBar from "@/components/shared/PaginationBar"
-import RenderLoadning from "@/components/shared/RenderLoadning"
 import TableFilter from "@/components/shared/TableFilter"
 import {
   Table,
@@ -13,15 +13,15 @@ import {
 } from "@/components/ui/table"
 import { useGetAllRidesQuery } from "@/redux/features/ride/ride.api"
 import type { IRide } from "@/types/ride.type"
-import React from "react"
 import { useState } from "react"
 import { Link } from "react-router"
 
-export function AllRide() {
+const  AllRide=() =>{
 
    const [currentPage, setCurrentPage] = useState(1)
   const {data:rideinfo,isLoading:isRideLoading} = useGetAllRidesQuery()
-  RenderLoadning(isRideLoading)
+  
+  // RenderLoadning(isRideLoading)
  
 const totalPages = rideinfo?.meta?.totalPages || 1
 // ------
@@ -31,15 +31,16 @@ const handleClear = () => {
     setSearchText("");
     setStatusFilter("");
   };
+  if(isRideLoading)return <Loading/>
 
   const filteredData = rideinfo?.data?.filter((item:IRide) => {
-    // console.log(item);
+    // //console.log(item);
     
     const matchSearch = item?.pickupLocation?.name?.toLowerCase().includes(searchText.toLowerCase());
-    // console.log(matchSearch);
+    // //console.log(matchSearch);
     
     const matchStatus = statusFilter ? item?.status === statusFilter : true;
-// console.log(matchStatus);
+// //console.log(matchStatus);
 
     return matchSearch && matchStatus;
   });
@@ -52,7 +53,7 @@ const handleClear = () => {
   { label: "cancelled", value: "cancelled" },
   { label: "noResponse", value: "noResponse" }
   ]
-  console.log(rideinfo);
+  //console.log(rideinfo);
   return (
     <div className="my-5">
        <TableFilter
@@ -87,7 +88,7 @@ const handleClear = () => {
     <TableCell className="font-medium">{ride.fare}$</TableCell>
     <TableCell className="font-medium">{ride.destinationLocation.name}</TableCell>
             <TableCell>{ride.status}</TableCell>
-            <TableCell><Link to={`/dashboard/admin/ride-details/${ride._id}`}>Details</Link></TableCell>
+            <TableCell><Link to={`/dashboard/ride-details/${ride._id}`}>Details</Link></TableCell>
           </TableRow>
         ))}
       </TableBody>
@@ -106,3 +107,4 @@ const handleClear = () => {
     
   )
 }
+export default AllRide

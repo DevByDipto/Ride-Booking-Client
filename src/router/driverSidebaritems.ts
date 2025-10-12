@@ -1,11 +1,10 @@
 
-
-import DriverAllRideHistory from "@/page/driver/DriverAllRideHistory";
+import { lazy } from "react";
 import DriverInactive from "@/page/driver/DriverInactive";
-import DriverProfile from "@/page/driver/DriverProfile";
-import IncomingRides from "@/page/driver/IncomingRides";
-import RideManagement from "@/page/driver/RideManagement";
-import RideDetails from "@/page/ride/RideDetails";
+const DriverAllRideHistory = lazy(() => import("@/page/driver/DriverAllRideHistory"));
+const DriverProfile = lazy(() => import("@/page/driver/DriverProfile"));
+const IncomingRides = lazy(() => import("@/page/driver/IncomingRides"));
+const RideManagement = lazy(() => import("@/page/driver/RideManagement"));
 
 
 
@@ -34,10 +33,10 @@ export const driverSidebarItems= [
           url: "/dashboard/driver/rideManagement",
            Component: DriverInactive(RideManagement)
         },
-         {
-          url: "/dashboard/driver/ride-details/:id", 
-          Component: RideDetails
-        },
+      //    { 
+      //     url: "/dashboard/driver/ride-details/:id", 
+      //     Component: RideDetails
+      //   },
        
       ],
     },

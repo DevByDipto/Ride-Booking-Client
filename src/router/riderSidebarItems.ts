@@ -1,8 +1,11 @@
 
 
-import RideDetails from "@/page/ride/RideDetails";
-import { RiderAllRideHistory } from "@/page/ride/RiderAllrideHistory";
-import RiderProfile from "@/page/rider/RiderProfile";
+
+import { lazy } from "react";
+
+const RiderAllRideHistory = lazy(() => import("@/page/ride/RiderAllrideHistory"));
+const RiderProfile = lazy(() => import("@/page/rider/RiderProfile"));
+
 
 
 
@@ -20,10 +23,10 @@ export const riderSidebarItems= [
           url: "/dashboard/rider/profile",
            Component: RiderProfile
         },
-         {
-          url: "/dashboard/rider/ride-details/:id", 
-          Component: RideDetails
-        },
+        //  {
+        //   url: "/dashboard/rider/ride-details/:id", 
+        //   Component: RideDetails
+        // },
           ],
     },
   ]

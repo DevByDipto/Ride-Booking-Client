@@ -1,25 +1,32 @@
 import { createBrowserRouter, Navigate } from "react-router";
-import Register from "../page/Register";
-import Login from "../page/Login";
-import CommonLayout from "../components/layouts/CommonLayout";
-import DashBoardLayout from "@/components/layouts/DashBoardLayout";
+import { lazy } from "react";
 
+// Layouts
+const CommonLayout = lazy(() => import("@/components/layouts/CommonLayout"));
+const DashBoardLayout = lazy(
+  () => import("@/components/layouts/DashBoardLayout")
+);
 
-import Unauthorized from "@/page/Unauthorized";
-import PrivateRoute from "./privateRoute";
+// Pages
+const Register = lazy(() => import("@/page/Register"));
+const Login = lazy(() => import("@/page/Login"));
+const Unauthorized = lazy(() => import("@/page/Unauthorized"));
+const NotFound = lazy(() => import("@/page/NotFound"));
+const BlockedPage = lazy(() => import("@/page/BlockedPage"));
+const Home = lazy(() => import("@/page/Home/Home"));
+const AboutUsSection = lazy(() => import("@/page/AboutUs"));
+const FeaturesSection = lazy(() => import("@/page/Features"));
+const ContactSection = lazy(() => import("@/page/ContactSection"));
+const FAQSection = lazy(() => import("@/page/FAQSection"));
+
+// Sidebar Utils & Routes
 import generateRouteFromSidebar from "@/utils/generateRouteFromSidebar";
 import { adminSidebarItems } from "./adminSidebarItems";
-import NotFound from "@/page/NotFound";
-import BlockedPage from "@/page/BlockedPage";
-import RiderPrivateRoute from "./RiderPrivateRoute";
 import { riderSidebarItems } from "./riderSidebarItems";
 import { driverSidebarItems } from "./driverSidebaritems";
-import HowItWorksOverview from "@/components/modules/home/HowItWorksOverview";
-import Home from "@/page/Home/Home";
-import AboutUsSection from "@/page/AboutUs";
-import FeaturesSection from "@/page/Features";
-import ContactSection from "@/page/ContactSection";
-import FAQSection from "@/page/FAQSection";
+import PrivateRoute from "./PrivateRoute";
+import RiderPrivateRoute from "./RiderPrivateRoute";
+import RideDetails from "@/page/ride/RideDetails";
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +34,10 @@ export const router = createBrowserRouter([
     Component: CommonLayout,
     children: [
       { path: "/", Component: Home },
+      { path: "/about-us", Component: AboutUsSection },
+      { path: "/features", Component: FeaturesSection },
+      { path: "/", Component: ContactSection },
+      { path: "/faq", Component: FAQSection },
     ],
   },
   {
@@ -48,7 +59,8 @@ export const router = createBrowserRouter([
         <DashBoardLayout />
       </RiderPrivateRoute>
     ),
-    children: [{ index: true, element: <Navigate to="/dashboard/rider/profile" /> },
+    children: [
+      { index: true, element: <Navigate to="/dashboard/rider/profile" /> },
       ...generateRouteFromSidebar(riderSidebarItems),
     ],
   },
@@ -56,28 +68,21 @@ export const router = createBrowserRouter([
     path: "/dashboard/driver",
     element: (
       // <RiderPrivateRoute role="rider">
-        <DashBoardLayout />
+      <DashBoardLayout />
       // </RiderPrivateRoute>
     ),
-    children: [{ index: true, element: <Navigate to="/dashboard/driver/profile" /> },
+    children: [
+      { index: true, element: <Navigate to="/dashboard/driver/profile" /> },
       ...generateRouteFromSidebar(driverSidebarItems),
     ],
   },
   {
-    path: "/about-us",
-    Component: AboutUsSection,
-  },
-  {
-    path: "/features",
-    Component: FeaturesSection,
-  },
-  {
-    path: "/Contact",
-    Component: ContactSection,
-  },
-  {
-    path: "/faq",
-    Component: FAQSection,
+    path: "/dashboard/ride-details/:id",
+    element: (
+      <PrivateRoute>
+        <RideDetails />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/register",
@@ -100,4 +105,3 @@ export const router = createBrowserRouter([
     Component: NotFound,
   },
 ]);
-

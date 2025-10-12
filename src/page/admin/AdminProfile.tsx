@@ -1,4 +1,3 @@
-import RenderLoadning from "@/components/shared/RenderLoadning";
 import { Button } from "@/components/ui/button";
 import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
 import React, { useState } from "react";
@@ -29,15 +28,17 @@ import {
 
 import { useUpdateAdminMutation } from "@/redux/features/user/user.api";
 import type { TAdminUpdate } from "@/types/admin.type";
+import Loading from "@/components/shared/Loading";
 
 const AdminProfile = () => {
   const { data, isLoading, refetch } = useUserInfoQuery();
   const [dialogOpen, setDialogOpen] = useState(false);
-  RenderLoadning(isLoading);
+ 
+  // RenderLoadning(isLoading);
 
   const adminInfo = data?.data;
   const [updateAdmin] = useUpdateAdminMutation();
-// console.log(adminInfo);
+// //console.log(adminInfo);
 
   // ✅ Validation schema
   const adminSchema = z.object({
@@ -66,7 +67,7 @@ const AdminProfile = () => {
       }); 
     }
   }, [adminInfo]);
-
+ if(isLoading)return <Loading/>
   // ✅ Submit handler
   const onSubmit = async (value: z.infer<typeof adminSchema>) => {
     const adminData: TAdminUpdate = {
@@ -75,10 +76,12 @@ const AdminProfile = () => {
       phoneNumber: value.phoneNumber || adminInfo?.phoneNumber,
       password: value.password || data?.data?.password,
     };
-console.log(adminData);
+//console.log({adminData});
 
     try {
       const res = await updateAdmin(adminData).unwrap();
+      //console.log(res);
+      
       if (res.data) {
         toast.success("Admin profile updated successfully");
         setDialogOpen(false);

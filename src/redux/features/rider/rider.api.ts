@@ -9,7 +9,7 @@ export const rideApi = baseApi.injectEndpoints({
       query: ({ _id, ...data }) => ({
         url: `/rider/${_id}`,
         method: "PATCH",
-        body: data,
+        body: data, 
       }),
       invalidatesTags: ['User'] // refetch kaj korche nah keno ?(support)
     }),
