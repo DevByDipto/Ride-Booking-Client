@@ -6,14 +6,8 @@ A modern **Ride Booking System** frontend built with **React, TailwindCSS, ShadC
 
 ## Table of Contents
 
-- [Project Overview](#project-overview)
-- [Features](#features)
-- [Folder Structure](#folder-structure)
-- [Technology Stack](#technology-stack)
-- [Setup & Installation](#setup--installation)
-- [Scripts](#scripts)
-- [Contributing](#contributing)
-- [License](#license)
+- [live-link](#project-overview)
+- [backend-repo-link](#project-overview)
 
 ---
 
