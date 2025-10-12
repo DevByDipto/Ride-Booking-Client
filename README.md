@@ -71,3 +71,27 @@ src/
 ├── redux/              # Redux slices & API endpoints
 ├── utils/              # Helper functions, route generators
 └── App.tsx
+## 🚀 Setup Instructions
+
+Follow the steps below to set up and run the project locally.
+
+---
+```
+### 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/your-username/ride-booking-frontend.git
+cd ride-booking-frontend
+```
+### 2️⃣ Install Dependencies
+```bash
+npm install
+```
+### 3️⃣ Configure Environment Variables
+```
+VITE_BASE_URL=http://localhost:5000/api
+```
+### 4️⃣ Run the Development Server
+```
+npm run dev
+```
