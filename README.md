@@ -78,30 +78,31 @@ Follow the steps below to set up and run the project locally.
 
 ---
 ```
-# 1️⃣ Clone the Repository
+### 1️⃣ Clone the Repository
 
 ```bash
 git clone https://github.com/your-username/ride-booking-frontend.git
 cd ride-booking-frontend
 ```
-# 2️⃣ Install Dependencies
+### 2️⃣ Install Dependencies
 ```bash
 npm install
 ```
-# 3️⃣ Configure Environment Variables
+### 3️⃣ Configure Environment Variables
 ```
 VITE_BASE_URL=http://localhost:5000/api
 ```
-# 4️⃣ Run the Development Server
+### 4️⃣ Run the Development Server
 ```
 npm run dev
 ```
-# Admin Credentials
+---
+### Admin Credentials
 - email: admin@gmail.com
 - pass: 12345678
-# Rider Credentials
+### Rider Credentials
 - email: rider@gmail.com
 - pass: 12345678
-  # Driver Credentials
+### Driver Credentials
 - email: driver@gmail.com
 - pass: 12345678
