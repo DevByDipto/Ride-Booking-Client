@@ -103,7 +103,7 @@ npm run dev
 - email: admin@gmail.com
 - pass: 12345678
 ### Rider Credentials
-- email: rider@gmail.com
+- email: user@gmail.com
 - pass: 12345678
 ### Driver Credentials
 - email: driver@gmail.com
