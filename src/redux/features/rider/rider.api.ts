@@ -11,7 +11,7 @@ export const rideApi = baseApi.injectEndpoints({
         method: "PATCH",
         body: data, 
       }),
-      invalidatesTags: ['User'] // refetch kaj korche nah keno ?(support)
+      invalidatesTags: ['User'] 
     }),
     getRiderById: builder.query<IResponse<any>, string>({
       query: (id) => ({

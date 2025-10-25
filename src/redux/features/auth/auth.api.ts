@@ -6,7 +6,7 @@ import type { IUser } from "@/types/user.type";
 export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     //Register endpoint
-    register: builder.mutation<IResponse<null>, IUser>({ // IResponse<null> aikhane ar data safty kii rilo null jokhon use korlam ? (support) ar reponse jodi formate ta main tain o nah kore tahole ts ta dhorte parbe nah tahole ai jibista bananor shubidha kii ?
+    register: builder.mutation<IResponse<null>, IUser>({ // IResponse<null> aikhane ar data safty kii rilo null jokhon use korlam ? (support) ar reponse jodi formate ta maintain o nah kore tahole ts ta dhorte parbe nah tahole ai jinista bananor shubidha kii ?
       query: (credential) => ({
         url: "/user/register",
         method: "POST",

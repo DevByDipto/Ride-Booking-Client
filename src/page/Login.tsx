@@ -46,7 +46,7 @@ const Login = () => {
     try {
       const res = await login(values).unwrap();
       //console.log(res);
-      const userData = res?.data as any; // aro best way kii ?(support)
+      const userData = res?.data as any; 
 
       if (userData?.role === role.RIDER) {
         

@@ -47,7 +47,7 @@ getAllRides: builder.query<IResponse<any>,void>({
         method: "PATCH",
         body:data,
       }),
-      invalidatesTags: ['Ride'] // kaj korche nah (support)
+      invalidatesTags: ['Ride'] 
     }),
   }),
 });
