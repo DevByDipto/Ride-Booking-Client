@@ -23,7 +23,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="py-24 bg-gradient-to-b from-background to-muted/30">
+    <section className="py-24 px-6 bg-gradient-to-b from-background to-muted/30">
       <div className="container">
         <div className="grid items-center gap-12 lg:grid-cols-2">
           {/* Left Side Text Content */}
