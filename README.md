@@ -1,6 +1,6 @@
 # Ride Booking Frontend
 
-A modern **Ride Booking System** frontend built with **React, TailwindCSS, ShadCn, and Redux Toolkit**, featuring role-based dashboards for **Admin, Rider, and Driver**.
+The Ride Booking System is a full-stack MERN project that connects Riders and Drivers through a seamless booking and management platform. Built with a modular backend architecture and a Redux-focused frontend, it ensures scalability, maintainability, and real-time interaction. The system includes secure authentication, role-based access, ride lifecycle management, and responsive UI for an intuitive user experience across devices.
 
 ---
 
