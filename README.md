@@ -6,9 +6,9 @@ The Ride Booking System is a full-stack MERN project that connects Riders and Dr
 
 ## Table of Contents
 
-- [live-link](https://ride-booking-client-teal.vercel.app/)
+- [live-link](https://lively-ganache-03dd6f.netlify.app)
 - [backend-repo-link](https://github.com/DevByDipto/Ride-Booking-API)
-- [backend-live-link](https://ride-booking-api-phi.vercel.app/)
+- [backend-live-link](https://ride-booking-server-rust.vercel.app)
 
 ---
 
